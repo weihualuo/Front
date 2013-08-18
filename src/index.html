@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="front" ng-controller="AppCtrl">
+  <head>
+    <title>Front</title>
+
+    <% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" />
+	<% }); %>
+
+    <!--[if IE 7>
+    <link rel="stylesheet" href="assets/font-awesome-ie7.min.css />
+    <![endif]-->
+
+    <% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script>
+	<% }); %>
+
+  </head>
+  <body>
+    <div class="container">
+		Nav view  {{events.count}}
+    </div>
+
+    <div class="container" ui-view="main">
+    	Main view     {{test}}
+    </div>
+
+    <footer class="footer">
+		this is footer
+    </footer>
+    <script>
+        console.log(new Date());
+    </script>
+  </body>
+</html>
