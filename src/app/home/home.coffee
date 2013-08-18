@@ -10,7 +10,8 @@ angular.module('front.home', ['ui.state'])
     })
   )
 
-  .controller( 'HomeCtrl', ($scope, Event) ->
+  .controller( 'HomeCtrl', ($scope, Events) ->
+#    $scope.event = Events.get(0)
 #    $scope.events = Event.get()
 
   )

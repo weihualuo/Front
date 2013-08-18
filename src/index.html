@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="front" ng-controller="AppCtrl">
   <head>
+    <meta charset="utf-8">
     <title>Front</title>
 
     <% styles.forEach( function ( file ) { %>
@@ -17,19 +18,52 @@
 
   </head>
   <body>
-    <div class="container">
-		Nav view  {{events.count}}
-    </div>
 
-    <div class="container" ui-view="main">
-    	Main view     {{test}}
-    </div>
+  <pre>{{filterStatus}}</pre>
+  <div class="btn-group">
+      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=0>全部</button>
+      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=1>即将开始</button>
+      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=2>正在进行</button>
+      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=3>已经结束</button>
+  </div>
+  <br>
+  total  {{events.metadata.count}}
+  <ul class="unstyled">
+      <li class="row-fluid event_list" ng-repeat="event in events">
+          <a href="#/events/:{{event.pk}}">
+              <div class="span2">
+                  <img src="{{events.metadata.imageBase}}{{event.image.thumbnail2}}"/>
+              </div>
+              <div class="span10">
+                  <div class="span10 text-info">
 
-    <footer class="footer">
-		this is footer
-    </footer>
-    <script>
-        console.log(new Date());
-    </script>
+                    <span class="event_attr event_title">
+                        <small class="muted">{{event.category}}</small>
+                            <strong>{{event.title}}</strong>
+                    </span>
+                      <span class="event_attr event_avenue">地　点：{{event.avenue}}</span>
+                      <span class="event_attr event_starter">召集人：{{event.starter.name}}</span>
+                      <span class="event_attr event_desc">简　介：<small>{{event.description|limitTo:50}}</small></span>
+                  </div>
+                  <div class="span2">
+                      <div>
+                          <span class="label">{{event.status}}</span>
+                      </div>
+                  </div>
+              </div>
+              <a>
+      </li>
+  </ul>
+
+  <div class="container" ui-view="main">
+      Main view
+  </div>
+
+  <footer class="footer">
+      this is footer
+  </footer>
+  <script>
+      console.log(new Date());
+  </script>
   </body>
 </html>
