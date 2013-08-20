@@ -7,29 +7,37 @@ angular.module( 'front', ['restangular',
                           'ui.state',
                           'ui.route'])
   .config( ($stateProvider, $urlRouterProvider, RestangularProvider) ->
-    $urlRouterProvider
-      .otherwise( '/home' )
-    RestangularProvider.setBaseUrl("/api/")
-    RestangularProvider.setRequestSuffix('/')
+#    $urlRouterProvider
+#      .otherwise( '/' )
+#    $stateProvider.state('init', {
+#      url: '/',
+#      views:
+#        {}
+#    })
+
+
+    RestangularProvider.setBaseUrl '/api/'
+    RestangularProvider.setRequestSuffix '/'
     RestangularProvider.setResponseExtractor (response, operation, what, url)->
       if operation is 'getList'
         res = response.results
-        res.metadata= response
+        res.meta= response
       else
         res = response
       res
-    RestangularProvider.addElementTransformer('events', false, (event) ->
+    RestangularProvider.addElementTransformer 'events', false, (event) ->
       event
-      )
     )
-  .factory('Events', (Restangular)->
-    Restangular.all('events')
+
+  .factory('Events', (Restangular, $location, $timeout)->
+    me = Restangular.all('events').getList()
+    me.then ->
+      $timeout (-> $location.path '/home'), 1000
+    me
   )
+
   .controller('AppCtrl', ($scope, Restangular, Events, $log) ->
-    Events.getList().then (events)->
-      $scope.events = events
-    $scope.filterStatus = 0
-#    $log.log($scope.events)
+
   )
 
 

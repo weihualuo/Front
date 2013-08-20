@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html ng-app="front" ng-controller="AppCtrl">
   <head>
-    <meta charset="utf-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
     <title>Front</title>
 
     <% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" />
 	<% }); %>
-
-    <!--[if IE 7>
-    <link rel="stylesheet" href="assets/font-awesome-ie7.min.css />
-    <![endif]-->
 
     <% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script>
@@ -18,50 +17,39 @@
 
   </head>
   <body>
+  <div class="container-fluid">
 
-  <pre>{{filterStatus}}</pre>
-  <div class="btn-group">
-      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=0>全部</button>
-      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=1>即将开始</button>
-      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=2>正在进行</button>
-      <button type="button" class="btn btn-primary" ng-model="filterStatus" btn-radio=3>已经结束</button>
-  </div>
-  <br>
-  total  {{events.metadata.count}}
-  <ul class="unstyled">
-      <li class="row-fluid event_list" ng-repeat="event in events">
-          <a href="#/events/:{{event.pk}}">
-              <div class="span2">
-                  <img src="{{events.metadata.imageBase}}{{event.image.thumbnail2}}"/>
-              </div>
-              <div class="span10">
-                  <div class="span10 text-info">
-
-                    <span class="event_attr event_title">
-                        <small class="muted">{{event.category}}</small>
-                            <strong>{{event.title}}</strong>
-                    </span>
-                      <span class="event_attr event_avenue">地　点：{{event.avenue}}</span>
-                      <span class="event_attr event_starter">召集人：{{event.starter.name}}</span>
-                      <span class="event_attr event_desc">简　介：<small>{{event.description|limitTo:50}}</small></span>
-                  </div>
-                  <div class="span2">
-                      <div>
-                          <span class="label">{{event.status}}</span>
-                      </div>
-                  </div>
-              </div>
-              <a>
-      </li>
-  </ul>
-
-  <div class="container" ui-view="main">
-      Main view
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <a class="brand"></a>
+          <ul class="nav">
+              <li class="active"><a href="#">首页</a></li>
+              <li class="divider-vertical"></li>
+              <li><a href="#">地点</a></li>
+              <li class="divider-vertical"></li>
+              <li><a href="#">相册</a></li>
+          </ul>
+      </div>
   </div>
 
-  <footer class="footer">
-      this is footer
-  </footer>
+  <div ui-view="main">
+      Loading...
+  </div>
+
+  <div class="navbar navbar-fixed-bottom">
+      <div class="navbar-inner">
+          <a class="brand"></a>
+          <ul class="nav">
+              <li class="active"><a href="#">首页</a></li>
+              <li class="divider-vertical"></li>
+              <li><a href="#">地点</a></li>
+              <li class="divider-vertical"></li>
+              <li><a href="#">相册</a></li>
+          </ul>
+      </div>
+  </div>
+
+  </div>
   <script>
       console.log(new Date());
   </script>

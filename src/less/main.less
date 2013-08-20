@@ -9,7 +9,10 @@
  * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
  * project should be imported as the rest are just wasting space.
 //*/
-//
+
+
+@import 'variables.less';
+
 @import '../../vendor/bootstrap/less/mixins.less';
 @import '../../vendor/bootstrap/less/reset.less';
 @import '../../vendor/bootstrap/less/utilities.less';
@@ -22,6 +25,9 @@
 @import '../../vendor/bootstrap/less/buttons.less';
 @import '../../vendor/bootstrap/less/button-groups.less';
 @import '../../vendor/bootstrap/less/dropdowns.less';
+@import '../../vendor/bootstrap/less/labels-badges.less';
+//@import '../../vendor/bootstrap/less/responsive.less';
+//@import "../../vendor/topcoat/topcoat-mobile-dark.min.css";
 
 /**
  * This is our main variables file. It in turn imports the `variables` file from
@@ -29,24 +35,25 @@
  * definitions in our imported stylesheets.
  */
 
-@import 'variables.less';
 
-.event_list {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  .event_attr{
-    display:block;
+//*{margin:0;padding:0;border:0;}
+//article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,audio,canvas,video{display:block;}
+body{
+  background:#eee;
+  height:100%;
+  padding-top: @navbarHeight;
+  padding-bottom: @navbarHeight;
+  -webkit-user-select:none;
+  -webkit-text-size-adjust:none;
+}
+
+ul{
+  .event_list {
+    .event_attr{
+      display:block;
+    }
   }
 }
 
-.footer {
-  margin-top: 80px;
 
-  .footer-inner {
-    padding: 40px 0;
-    border-top: 1px solid #DDD;
-  }
-
-}
-//@import '../app/home/home.less';
 

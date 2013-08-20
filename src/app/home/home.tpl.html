@@ -1,3 +1,33 @@
 <div>
-	this is home view
+
+    <ul class="unstyled" ng-init='list = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"] '>
+        <br>
+        <div ng-repeat="event in events">
+        <li class="event_list row-fluid" >
+            <a href="#/events/:{{event.pk}}">
+                <div class="span4 event_image">
+                    <img src="{{events.meta.imageBase}}{{event.image.thumbnail2}}"/>
+                </div>
+                <div class="span8">
+                    <div class="span9">
+                        <span class="event_attr event_title">
+                            <strong>{{event.title}}</strong>
+                        </span>
+                        <span class="event_attr event_ca">
+                        类别：{{event.ca}}
+                        </span>
+                        <span class="event_attr event_time">
+                         时间：{{event.start_time| date:'MM月dd日 HH:mm'}}
+                        </span>
+                        <span class="event_attr event_avenue">地点：{{event.avenue}}</span>
+                    </div>
+                    <div class="span3">
+                        <span class="label">{{list[event.status+1]}}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <hr>
+        </div>
+    </ul>
 </div>

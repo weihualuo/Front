@@ -49,7 +49,7 @@ module.exports = {
    */
   vendor_files: {
     js: [
-		'vendor/jquery/jquery.min.js',
+//		'vendor/jquery/jquery.min.js',
         'vendor/angular/angular.js',
         'vendor/restangular/src/restangular.js',
         'vendor/lodash/lodash.js',
