@@ -1,0 +1,80 @@
+
+
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+.fixbar(@height: @headerHeight) {
+  position:absolute; z-index:2;
+  width:100%;
+  height: @height;
+  line-height: @height;
+  #gradient > .nav-bar;
+  padding:0;
+  color:#eee;
+  font-size:20px;
+  text-align:center;
+
+  a{
+    color:#f3f3f3;
+    text-decoration:none;
+    font-weight:bold;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.5);
+  }
+}
+
+.size(@height, @width) {
+  width: @width;
+  height: @height;
+}
+.square(@size) {
+  .size(@size, @size);
+}
+
+#gradient {
+  .nav-bar{
+    background-color:#222;
+    background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
+    background-image:-moz-linear-gradient(top, #999, #666 2%, #222);
+    background-image:-o-linear-gradient(top, #999, #666 2%, #222);
+  }
+}
+
+// Quick floats
+.pull-right {
+  float: right;
+}
+.pull-left {
+  float: left;
+}
+
+// Toggling content
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+// Visibility
+.invisible {
+  visibility: hidden;
+}
+
+// For Affix plugin
+.affix {
+  position: fixed;
+}
