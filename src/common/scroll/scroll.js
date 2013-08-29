@@ -7,20 +7,12 @@ angular.module( 'myscroll', []).
             pullDownEl, pullDownOffset,  pullDownLabel, pullDownText,
             pullUpEl, pullUpOffset,  pullUpLabel, pullUpText,
             flipText, loadText,
-            IScroll = iScroll;
+            IScroll = iScroll,
+            position = {};
 
-
-        function pullDownAction () {
-            loadCallback(true);
-        }
-
-        function pullUpAction () {
-            loadCallback(false);
-        }
-
-        function loaded() {
+        function loaded(refresh) {
             pullDownEl = document.getElementById('pullDown');
-            pullDownOffset = 0;
+            pullDownOffset = refresh ? 0: pullDownEl.offsetHeight;
             pullDownLabel = pullDownEl.querySelector('.pullDownLabel');
             pullDownText = pullDownLabel.innerHTML;
             
@@ -59,44 +51,50 @@ angular.module( 'myscroll', []).
                     if (pullDownEl.className.match('flip')) {
                         pullDownEl.className = 'loading';
                         pullDownLabel.innerHTML = loadText;
-                        pullDownAction();	// Execute custom function (ajax call?)
+                        loadCallback('refresh');
                     }
                 }
             });
-
-            pullDownEl.className = 'loading';
-            pullDownLabel.innerHTML = loadText;
-            pullDownAction();
-//            myScroll.scrollToElement(pullDownEl, 3000);
-//            myScroll.scrollTo(0, -100, 200);
+            if (refresh){
+                pullDownEl.className = 'loading';
+                pullUpEl.className = 'hide';
+                pullDownLabel.innerHTML = loadText;
+                loadCallback('refresh');
+            }
+            else if (position.y){
+                myScroll.scrollTo(position.x, position.y);
+            }
+//            window.s = myScroll;
         }
 
         document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 
         return {
-            init:   function(cb){
+            init:   function(refresh, cb){
+                console.log(position);
                 loadCallback = cb;
-                setTimeout(function(){loaded();}, 0);
+                setTimeout(function(){loaded(refresh);}, 0);
             },
 
-            refresh: function(counts){
+            refresh: function(data){
 
                 if (myScroll.options.topOffset === 0 ) {
                     myScroll.options.topOffset = pullDownEl.offsetHeight;
                     pullUpEl.className = 'idle';
                 }
                 myScroll.refresh();
-
             } ,
 
             more: function(){
                 pullUpEl.className = 'loading';
                 pullUpLabel.innerHTML = loadText;
-                pullUpAction();
+                loadCallback('more');
             },
 
             destroy: function(){
+                position.y = myScroll.y;
+                position.x = myScroll.x;
                 myScroll.destroy();
                 myScroll = null;
             }

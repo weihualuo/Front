@@ -50,11 +50,14 @@ module.exports = {
   vendor_files: {
     js: [
 //		'vendor/jquery/jquery.min.js',
-        'vendor/angular/angular.js',
-        'vendor/restangular/src/restangular.js',
+        'vendor/angular/angular1.0.js',
+        'vendor/angular/angular-mobile.js',
+//        'vendor/angular-touch/angular-touch.min.js',
+        'vendor/angular-mobile-nav/mobile-nav.min.js',
         'vendor/lodash/lodash.js',
-        'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-        'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
+        'vendor/restangular/restangular.min.js',
+//        'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
+//        'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
         'vendor/angular-ui-router/release/angular-ui-router.js',
         'vendor/angular-ui-utils/modules/route/route.js',
 		'vendor/iscroll-4/src/iscroll.js'

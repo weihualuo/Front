@@ -1,4 +1,8 @@
 
-<div>
-    this is detail view tpl
+<div class="card">
+<div ng-click="$nav.back()">
+    <h4>{{e.title}}</h4>
+    <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
+    <p>{{e.description}}</p>
+</div>
 </div>

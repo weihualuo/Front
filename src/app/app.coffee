@@ -3,12 +3,26 @@ angular.module( 'front', ['restangular',
                           'templates-app',
                           'templates-common',
                           'front.home',
-                          'ui.bootstrap',
-                          'ui.state',
-                          'ui.route'])
-  .config( ($stateProvider, $urlRouterProvider, RestangularProvider) ->
-    $urlRouterProvider
-      .otherwise( '/home' )
+                          'ajoslin.mobile-navigate',
+                          'ngMobile'
+#                          'ui.bootstrap',
+#                          'ui.state',
+#                          'ui.route'
+])
+  .config( (RestangularProvider, $routeProvider) ->
+    $routeProvider.when( '/',
+      controller: 'HomeCtrl',
+      templateUrl: 'home/home.tpl.html'
+    )
+    .when( '/events/:id'
+      controller: 'DetailCtrl',
+      templateUrl: 'detail/detail.tpl.html'
+      )
+    .otherwise(
+      redirectTo: '/'
+    )
+#    $urlRouterProvider
+#      .otherwise( '/home' )
 #    $stateProvider.state('init', {
 #      url: '/',
 #      views:
@@ -17,7 +31,7 @@ angular.module( 'front', ['restangular',
 
 
     RestangularProvider.setBaseUrl '/api/'
-    RestangularProvider.setRequestSuffix '/'
+#    RestangularProvider.setRequestSuffix '/'
 #    RestangularProvider.setResponseExtractor (response, operation, what, url)->
 #      if operation is 'getList'
 #        res = response.results
@@ -30,14 +44,25 @@ angular.module( 'front', ['restangular',
     )
 
   .factory('Events', (Restangular, $location, $timeout)->
-    me = Restangular.all('events')
-#    me.then ->
-#      $timeout (-> $location.path '/home'), 10000
-#    me
+    E = Restangular.all('events')
+    list = []
+    E.all = -> list
+
+    E.prev = (cb)->
+      p = first:list[0].id if list.length
+      E.getList(p).then (data)->
+        list = data.concat list
+        $timeout (-> cb list ), 2000
+    E.next = (cb)->
+      p = last:list[list.length-1].id if list.length
+      E.getList(p).then (data)->
+        list = list.concat data
+        cb list
+    E
   )
 
-  .controller('AppCtrl', ($scope) ->
-
+  .controller('AppCtrl', ($scope, $navigate) ->
+    $scope.$nav = $navigate
   )
 
 
