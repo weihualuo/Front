@@ -72,7 +72,6 @@ angular.module( 'myscroll', []).
 
         return {
             init:   function(refresh, cb){
-                console.log(position);
                 loadCallback = cb;
                 setTimeout(function(){loaded(refresh);}, 0);
             },

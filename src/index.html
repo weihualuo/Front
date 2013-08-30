@@ -18,7 +18,10 @@
   </head>
   <body>
 
-  <div id="header">集结号</div>
+  <div id="header">
+      <a class="button back-button" ng-click="$nav.back()">后退</a>
+      <span>{{title}}</span>
+  </div>
   <!--<div id="main" ui-view="main">-->
   <!--</div>-->
   <mobile-view></mobile-view>

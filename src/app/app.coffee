@@ -3,6 +3,7 @@ angular.module( 'front', ['restangular',
                           'templates-app',
                           'templates-common',
                           'front.home',
+#                          'jqm'
                           'ajoslin.mobile-navigate',
                           'ngMobile'
 #                          'ui.bootstrap',
@@ -46,22 +47,28 @@ angular.module( 'front', ['restangular',
   .factory('Events', (Restangular, $location, $timeout)->
     E = Restangular.all('events')
     list = []
-    E.all = -> list
+    Agent = {}
+    Agent.all = -> list
 
-    E.prev = (cb)->
+    Agent.prev = (cb)->
       p = first:list[0].id if list.length
       E.getList(p).then (data)->
         list = data.concat list
-        $timeout (-> cb list ), 2000
-    E.next = (cb)->
+        $timeout (-> cb list ), 0
+    Agent.next = (cb)->
       p = last:list[list.length-1].id if list.length
       E.getList(p).then (data)->
         list = list.concat data
         cb list
-    E
+    Agent.get = (id, cb)->
+      E.one(id).get().then (data)->
+        cb data
+    Agent
   )
 
   .controller('AppCtrl', ($scope, $navigate) ->
+    $scope.title = "集结号"
+    $scope.setTitle = (title)-> $scope.title = title
     $scope.$nav = $navigate
   )
 

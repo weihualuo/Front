@@ -12,11 +12,16 @@ angular.module('front.detail', ['ui.state'])
 
   .controller( 'DetailCtrl', ($scope, Events, $routeParams, $timeout) ->
     id = $routeParams.id
-    e = Events.one(id).get()
+
+    Events.get id, (data)->
+      $scope.e = data
+      $scope.setTitle(data.title)
+
+#    e = Events.one(id).get()
 #    for e in Events.all()
 #      break if e.id is id
-    $scope.e = e
-    console.log 'detailctrl'
+#    $scope.e = e
+#    $scope.$parent.title = 'set title'
   )
   .run(  -> console.log 'detailrun'
 

@@ -11,6 +11,7 @@ angular.module('front.home', ['ui.state', 'myscroll', 'front.detail'])
   )
 
   .controller( 'HomeCtrl', ($scope, Events, Scroll, $navigate, $timeout) ->
+    $scope.setTitle("集结号")
     $scope.events = Events.all()
     load = (list)->
       $scope.events = list

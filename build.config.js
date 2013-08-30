@@ -54,12 +54,16 @@ module.exports = {
         'vendor/angular/angular-mobile.js',
 //        'vendor/angular-touch/angular-touch.min.js',
         'vendor/angular-mobile-nav/mobile-nav.min.js',
+//        'vendor/angular-jqm/components/angular/angular.js',
+//        'vendor/angular-jqm/components/angular/angular-mobile.js',
+//        'vendor/angular-jqm/dist/angular-jqm.js'
+
         'vendor/lodash/lodash.js',
         'vendor/restangular/restangular.min.js',
 //        'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
 //        'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
-        'vendor/angular-ui-router/release/angular-ui-router.js',
-        'vendor/angular-ui-utils/modules/route/route.js',
+//        'vendor/angular-ui-router/release/angular-ui-router.js',
+//        'vendor/angular-ui-utils/modules/route/route.js',
 		'vendor/iscroll-4/src/iscroll.js'
     ],
     css: [
