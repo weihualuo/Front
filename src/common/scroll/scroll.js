@@ -1,4 +1,5 @@
 
+
 angular.module( 'myscroll', []).
     factory('Scroll', function(){
 
@@ -8,11 +9,12 @@ angular.module( 'myscroll', []).
             pullUpEl, pullUpOffset,  pullUpLabel, pullUpText,
             flipText, loadText,
             IScroll = iScroll,
-            position = {};
+            position = {}
+        ;
 
-        function loaded(refresh) {
+        function loaded(silent) {
             pullDownEl = document.getElementById('pullDown');
-            pullDownOffset = refresh ? 0: pullDownEl.offsetHeight;
+            pullDownOffset = !silent ? 0: pullDownEl.offsetHeight;
             pullDownLabel = pullDownEl.querySelector('.pullDownLabel');
             pullDownText = pullDownLabel.innerHTML;
             
@@ -51,17 +53,18 @@ angular.module( 'myscroll', []).
                     if (pullDownEl.className.match('flip')) {
                         pullDownEl.className = 'loading';
                         pullDownLabel.innerHTML = loadText;
-                        loadCallback('refresh');
+                        loadCallback(true);
                     }
                 }
             });
-            if (refresh){
+            if (!silent){
                 pullDownEl.className = 'loading';
                 pullUpEl.className = 'hide';
                 pullDownLabel.innerHTML = loadText;
-                loadCallback('refresh');
+                loadCallback(true);
             }
             else if (position.y){
+                console.log(position.y);
                 myScroll.scrollTo(position.x, position.y);
             }
 //            window.s = myScroll;
@@ -71,9 +74,13 @@ angular.module( 'myscroll', []).
 
 
         return {
-            init:   function(refresh, cb){
+            init:   function(cb, silent){
+                if (myScroll){
+                    console.log("exist! ");
+                    return;
+                }
                 loadCallback = cb;
-                setTimeout(function(){loaded(refresh);}, 0);
+                setTimeout(function(){loaded(silent);}, 0);
             },
 
             refresh: function(data){
@@ -88,14 +95,17 @@ angular.module( 'myscroll', []).
             more: function(){
                 pullUpEl.className = 'loading';
                 pullUpLabel.innerHTML = loadText;
-                loadCallback('more');
+                loadCallback(false);
             },
 
             destroy: function(){
+                console.log('destroy scroll : ' + myScroll.y);
                 position.y = myScroll.y;
                 position.x = myScroll.x;
-                myScroll.destroy();
-                myScroll = null;
+                if (myScroll){
+                    myScroll.destroy();
+                    myScroll = null;
+                }
             }
         };
 

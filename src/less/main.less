@@ -1,7 +1,11 @@
 
+@import "../../vendor/angular-jqm/components/jquery-mobile/jquery.mobile-1.3.1.min.css";
 @import 'variables';
 @import "mixinx";
 
+* {
+  -webkit-backface-visibility: hidden;
+}
 
 body,ul,li {
   padding:0;
@@ -27,6 +31,9 @@ body {
   width:100%;
 //  background:#aaa;
   overflow:auto;
+}
+.ui-content{
+  height: 100%;
 }
 
 #footer {
@@ -71,6 +78,6 @@ body {
 
 @import "../common/scroll/scroll";
 @import "../app/home/home";
-//@import "../../vendor/angular-jqm/components/jquery-mobile/jquery.mobile-1.3.1.min.css"
-@import "../../vendor/angular-mobile-nav/mobile-nav.css";
+
+//@import "../../vendor/angular-mobile-nav/mobile-nav.css";
 //@import "transition";

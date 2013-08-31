@@ -1,27 +1,14 @@
-angular.module('front.detail', ['ui.state'])
+angular.module('app.detail', [])
 
-  .config( ($stateProvider) ->
-#    $stateProvider.state 'detail' ,
-#      url : '/home/:id',
-#      views:
-#        "main":
-#          controller: 'DetailCtrl',
-#          templateUrl: 'detail/detail.tpl.html'
-
+  .config( () ->
   )
 
-  .controller( 'DetailCtrl', ($scope, Events, $routeParams, $timeout) ->
+  .controller( 'DetailCtrl', ($scope, Model, $routeParams, $timeout) ->
     id = $routeParams.id
+    $scope.e = Model.current()
+    $scope.setTitle($scope.e.title) if $scope.e
+    Model.get id, (data)-> $scope.e = data
 
-    Events.get id, (data)->
-      $scope.e = data
-      $scope.setTitle(data.title)
-
-#    e = Events.one(id).get()
-#    for e in Events.all()
-#      break if e.id is id
-#    $scope.e = e
-#    $scope.$parent.title = 'set title'
   )
   .run(  -> console.log 'detailrun'
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="front" ng-controller="AppCtrl">
+<html class="ui-mobile" ng-app="app" ng-controller="AppCtrl">
   <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="format-detection" content="telephone=no" />
@@ -16,16 +16,14 @@
 	<% }); %>
 
   </head>
-  <body>
-
-  <div id="header">
-      <a class="button back-button" ng-click="$nav.back()">后退</a>
-      <span>{{title}}</span>
-  </div>
-  <!--<div id="main" ui-view="main">-->
-  <!--</div>-->
-  <mobile-view></mobile-view>
-  <div id="footer"></div>
+  <body >
+    <div jqm-header jqm-theme='b'>
+        <a class="button back-button" href="#/">后退</a>
+        <h1>{{title}}</h1>
+    </div>
+   	<div jqm-caching-view>
+	</div>
+    <!--<div jqm-footer><h1>{{title}}</h1></div>-->
   <script>
       console.log(new Date());
   </script>

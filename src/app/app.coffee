@@ -1,35 +1,25 @@
 
-angular.module( 'front', ['restangular',
+angular.module( 'app', ['restangular',
                           'templates-app',
                           'templates-common',
-                          'front.home',
-#                          'jqm'
-                          'ajoslin.mobile-navigate',
+                          'app.home',
+                          'jqm'
                           'ngMobile'
-#                          'ui.bootstrap',
-#                          'ui.state',
-#                          'ui.route'
 ])
   .config( (RestangularProvider, $routeProvider) ->
     $routeProvider.when( '/',
-      controller: 'HomeCtrl',
+      controller: 'HomeCtrl'
       templateUrl: 'home/home.tpl.html'
+      animation: 'page-slide-reverse'
     )
-    .when( '/events/:id'
-      controller: 'DetailCtrl',
+    .when( '/detail/:id'
+      controller: 'DetailCtrl'
       templateUrl: 'detail/detail.tpl.html'
+      animation: 'page-slide'
       )
     .otherwise(
       redirectTo: '/'
     )
-#    $urlRouterProvider
-#      .otherwise( '/home' )
-#    $stateProvider.state('init', {
-#      url: '/',
-#      views:
-#        {}
-#    })
-
 
     RestangularProvider.setBaseUrl '/api/'
 #    RestangularProvider.setRequestSuffix '/'
@@ -44,32 +34,35 @@ angular.module( 'front', ['restangular',
 #      event
     )
 
-  .factory('Events', (Restangular, $location, $timeout)->
-    E = Restangular.all('events')
-    list = []
-    Agent = {}
-    Agent.all = -> list
+  .factory('Model', (Restangular, $location, $timeout)->
+    root = Restangular.all('events')
+    all = []
+    current = null
+    Model = {}
+    Model.all = -> all
+    Model.current = (e)->
+      current = e if e
+      current
 
-    Agent.prev = (cb)->
-      p = first:list[0].id if list.length
-      E.getList(p).then (data)->
-        list = data.concat list
-        $timeout (-> cb list ), 0
-    Agent.next = (cb)->
-      p = last:list[list.length-1].id if list.length
-      E.getList(p).then (data)->
-        list = list.concat data
-        cb list
-    Agent.get = (id, cb)->
-      E.one(id).get().then (data)->
-        cb data
-    Agent
+    Model.load = (refresh, cb)->
+      if all.length
+        if refresh then p = first:all[0].id
+        else p = last:all[all.length-1].id
+
+      root.getList(p).then (data)->
+        if refresh
+          all = data.concat all
+        else
+          all = all.concat data
+        cb all
+
+    Model.get = (id, cb)-> root.one(id).get().then cb
+#      $timeout (->root.one(id).get().then cb), 2000
+    Model
   )
 
-  .controller('AppCtrl', ($scope, $navigate) ->
-    $scope.title = "集结号"
+  .controller('AppCtrl', ($scope) ->
     $scope.setTitle = (title)-> $scope.title = title
-    $scope.$nav = $navigate
   )
 
 

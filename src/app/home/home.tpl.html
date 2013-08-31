@@ -1,15 +1,13 @@
 
-<!--class="card mb-slide" ng-class="{{{true: 'mb-in', false: 'mb-out'}[e==null]}}-->
-
-<div id="wrapper" class="card">
-
-    <div id="scroller">
+<div jqm-page>
+    <div id="wrapper" class="card">
+        <div id="scroller">
         <div id="pullDown" data-flip="松开即可刷新..." data-load="加载中...">
             <span class="pullDownIcon"></span><span class="pullDownLabel">下拉可以刷新...</span>
         </div>
         <ul id="thelist" ng-init='list = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
 
-            <li class="clearfix" ng-repeat="e in events" ng-click="onDetail(e)">
+            <li class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
                 <a>
                 <div class="list-thumb">
                     <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
@@ -33,14 +31,6 @@
         <div id="pullUp" class="idle" ng-click="more()">
             <span class="pullUpIcon"></span><span class="pullUpLabel">加载更多...</span>
         </div>
+        </div>
     </div>
-
 </div>
-
-<!--<div class="card mb-slide" ng-class="{{{true: 'mb-out', false: 'mb-in'}[e==null]}}">-->
-    <!--<div ng-click="e=null">-->
-        <!--<h4>{{e.title}}</h4>-->
-        <!--<img src="{{e.image.base}}{{e.image.thumbnail2}}"/>-->
-        <!--<p>{{e.description}}</p>-->
-    <!--</div>-->
-<!--</div>-->

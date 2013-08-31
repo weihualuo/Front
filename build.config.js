@@ -50,13 +50,13 @@ module.exports = {
   vendor_files: {
     js: [
 //		'vendor/jquery/jquery.min.js',
-        'vendor/angular/angular1.0.js',
-        'vendor/angular/angular-mobile.js',
+//        'vendor/angular/angular1.0.js',
+//        'vendor/angular/angular-mobile.js',
 //        'vendor/angular-touch/angular-touch.min.js',
-        'vendor/angular-mobile-nav/mobile-nav.min.js',
-//        'vendor/angular-jqm/components/angular/angular.js',
-//        'vendor/angular-jqm/components/angular/angular-mobile.js',
-//        'vendor/angular-jqm/dist/angular-jqm.js'
+//        'vendor/angular-mobile-nav/mobile-nav.min.js',
+        'vendor/angular-jqm/components/angular/angular.js',
+        'vendor/angular-jqm/components/angular/angular-mobile.js',
+        'vendor/angular-jqm/dist/angular-jqm.js',
 
         'vendor/lodash/lodash.js',
         'vendor/restangular/restangular.min.js',

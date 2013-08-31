@@ -1,7 +1,28 @@
 
-<div class="card" ng-init="">
-<div>
-    <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
-    <p>{{e.description}}</p>
-</div>
+<div jqm-page allow-same-view-animation>
+    <div class="card">
+        <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
+        <p>{{e.description}}</p>
+        <ul ng-init=''>
+            <li ng-repeat="u in e.attendees">
+                <a>
+                   {{ u.name}}
+                </a>
+            </li>
+        </ul>
+        <ul ng-init=''>
+            <li ng-repeat="c in e.comment_set">
+                <a>
+                    {{ c.body}}
+                </a>
+            </li>
+        </ul>
+        <ul ng-init=''>
+            <li ng-repeat="img in e.album">
+                <a>
+                    <img ng-src="{{img.base}}{{img.thumbnail2}}">
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
