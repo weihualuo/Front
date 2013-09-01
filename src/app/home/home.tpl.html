@@ -5,7 +5,7 @@
         <div id="pullDown" data-flip="松开即可刷新..." data-load="加载中...">
             <span class="pullDownIcon"></span><span class="pullDownLabel">下拉可以刷新...</span>
         </div>
-        <ul id="thelist" ng-init='list = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
+        <ul id="thelist" ng-init='list = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]' scrolly-scroll>
 
             <li class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
                 <a>

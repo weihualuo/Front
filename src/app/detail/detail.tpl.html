@@ -1,7 +1,14 @@
 
 <div jqm-page allow-same-view-animation>
     <div class="card">
-        <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
+        <div class="clearfix">
+            <div>
+                <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
+            </div>
+            <div>
+
+            </div>
+        </div>
         <p>{{e.description}}</p>
         <ul ng-init=''>
             <li ng-repeat="u in e.attendees">

@@ -54,10 +54,14 @@ angular.module( 'app', ['restangular',
           all = data.concat all
         else
           all = all.concat data
-        cb all
+        #wait 1 sec to simulate network congestion
+        #cb all
+        $timeout (->cb all), 1000
 
-    Model.get = (id, cb)-> root.one(id).get().then cb
-#      $timeout (->root.one(id).get().then cb), 2000
+    Model.get = (id, cb)->
+      #wait 1 sec to simulate network congestion
+      #root.one(id).get().then cb
+      $timeout (->root.one(id).get().then cb), 1000
     Model
   )
 

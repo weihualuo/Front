@@ -9,12 +9,12 @@ angular.module( 'myscroll', []).
             pullUpEl, pullUpOffset,  pullUpLabel, pullUpText,
             flipText, loadText,
             IScroll = iScroll,
-            position = {}
+            position
         ;
 
         function loaded(silent) {
             pullDownEl = document.getElementById('pullDown');
-            pullDownOffset = !silent ? 0: pullDownEl.offsetHeight;
+            pullDownOffset = silent ? pullDownEl.offsetHeight : 0;
             pullDownLabel = pullDownEl.querySelector('.pullDownLabel');
             pullDownText = pullDownLabel.innerHTML;
             
@@ -63,27 +63,26 @@ angular.module( 'myscroll', []).
                 pullDownLabel.innerHTML = loadText;
                 loadCallback(true);
             }
-            else if (position.y){
+            else if (position){
                 console.log(position.y);
                 myScroll.scrollTo(position.x, position.y);
             }
 //            window.s = myScroll;
         }
 
-        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+//        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 
         return {
             init:   function(cb, silent){
-                if (myScroll){
-                    console.log("exist! ");
-                    return;
+                if (!myScroll){
+                    console.log("init iscoll! ");
+                    loadCallback = cb;
+                    setTimeout(function(){loaded(silent);});
                 }
-                loadCallback = cb;
-                setTimeout(function(){loaded(silent);}, 0);
             },
 
-            refresh: function(data){
+            refresh: function(){
 
                 if (myScroll.options.topOffset === 0 ) {
                     myScroll.options.topOffset = pullDownEl.offsetHeight;
@@ -100,8 +99,7 @@ angular.module( 'myscroll', []).
 
             destroy: function(){
                 console.log('destroy scroll : ' + myScroll.y);
-                position.y = myScroll.y;
-                position.x = myScroll.x;
+                postition = {x: myScroll.x, y: myScroll.y};
                 if (myScroll){
                     myScroll.destroy();
                     myScroll = null;
