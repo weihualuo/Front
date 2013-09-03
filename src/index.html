@@ -16,15 +16,37 @@
 	<% }); %>
 
   </head>
-  <body >
-    <div jqm-header jqm-theme='b'>
-        <a class="button" href="#/"><i class="icon-arrow-left icon-large"></i> </a>
-        <!--<i class="icon-spinner icon-spin icon-large"></i>-->
-        <h1>{{title}}</h1>
+  <body ng-init='status = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
+    <div id="header">
+      <a class="option pull-left"><i class="icon-edit icon-large"></i></a>
+      <span>{{title}}</span>
+      <a class="option pull-right"><i class="icon-refresh icon-large"></i></a>
     </div>
-   	<div jqm-caching-view>
-	</div>
-    <!--<div jqm-footer><h1>{{title}}</h1></div>-->
+    <div jqm-caching-view jqm-popup-target="loginPopup" jqm-popup-model="loginPopupShow" jqm-popup-placement="middle">
+        <!--<div jqm-footer><h1>{{title}}</h1></div>-->
+    </div>
+    <div jqm-popup="loginPopup" class="popup">
+        <div class="popup-header">
+            <i class="fui-cross pull-right" ng-click="$parent.loginPopupShow=false"></i>
+            <strong>使用合作网站授权登陆</strong>
+        </div>
+        <div class="popup-body">
+            <p>
+                <a href= "/oauth/login?state=/m/build/index.html#{{path}}">
+                    <img src="assets/img/sina-connect-32.png"/>
+                </a>
+            </p>
+            <p>
+                <a href= "/oauth/loginqq?state=/m/build/index.html#{{path}}">
+                    <img src="assets/img/qq-connect-32.png"/>
+                </a>
+            </p>
+        </div>
+        <div class="popup-footer">
+            <a class="btn btn-small" ng-click="$parent.loginPopupShow=false">关闭</a>
+        </div>
+        <!--<a ng-click="loginPopupShow=false">close</a>-->
+    </div>
   <script>
       console.log(new Date());
   </script>

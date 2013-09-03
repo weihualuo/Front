@@ -73,7 +73,7 @@ angular.module( 'myscroll', []).
 //        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 
-        return {
+         var me = {
             init:   function(cb, silent){
                 if (!myScroll){
                     console.log("init iscoll! ");
@@ -102,6 +102,35 @@ angular.module( 'myscroll', []).
                 postition = {x: myScroll.x, y: myScroll.y};
                 if (myScroll){
                     myScroll.destroy();
+                    myScroll = null;
+                }
+            }
+        };
+
+
+        return {
+            init:   function(cb, silent){
+                if (!myScroll){
+                    console.log("init iscoll! ");
+                    loadCallback = cb;
+                    setTimeout(function(){
+                        myScroll = {};
+                        if (!silent){
+                            loadCallback(true);
+                        }
+                    });
+                }
+            },
+
+            refresh: function(){
+            } ,
+
+            more: function(){
+                loadCallback(false);
+            },
+
+            destroy: function(){
+                if (myScroll){
                     myScroll = null;
                 }
             }

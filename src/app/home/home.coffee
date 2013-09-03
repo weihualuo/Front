@@ -3,8 +3,12 @@ angular.module('app.home', ['myscroll', 'app.detail'])
   .config( () ->
   )
 
-  .controller( 'HomeCtrl', ($scope, Model, Scroll, $timeout, $location) ->
-    $scope.setTitle "集结号"
+  .controller( 'HomeCtrl', ($scope, Model, Scroll, $timeout, $location, Meta) ->
+
+    $scope.$watch 'meta', ->
+      console.log 'watch meta'
+      $scope.setTitle $scope.meta.user.name if $scope.meta and $scope.meta.user
+
     $scope.objects = Model.all()
     $scope.filterStatus = 0
     $scope.more = Scroll.more
@@ -16,7 +20,7 @@ angular.module('app.home', ['myscroll', 'app.detail'])
           $timeout (->Scroll.refresh all), 100
 
     $scope.onDetail = (e)->
-      Model.current(e)
+#      Model.current(e)
       $location.path("/detail/"+e.id)
 
     $scope.$on '$destroy', ->

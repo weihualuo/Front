@@ -1,35 +1,76 @@
 
 <div jqm-page allow-same-view-animation>
-    <div class="card">
-        <div class="clearfix">
-            <div>
+    <!--<div jqm-header jqm-theme='c' class="app-bar">-->
+        <!--<a class="option pull-left" href="#/"><i class="fui-arrow-left icon-large"></i> </a>-->
+        <!--<h3>{{title}}</h3>-->
+    <!--</div>-->
+    <div id="detail">
+        <div class="row app-info">
+            <div class="pull-left pas">
                 <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
             </div>
-            <div>
-
+            <div class="pam">
+               <span>活动类型：{{e.ca}}</span>
+               <span>活动状态：{{status[e.status+1]}}</span>
+               <span>开始时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span>
+               <span>结束时间：{{e.end_time| date:'MM月dd日 HH:mm'}}</span>
+               <span>发起人  ：{{e.starter.name}}</span>
             </div>
         </div>
-        <p>{{e.description}}</p>
-        <ul ng-init=''>
-            <li ng-repeat="u in e.attendees">
-                <a>
-                   {{ u.name}}
+
+        <div class="row pam">
+            <div>
+            <a class="btn btn-primary" ng-click="popupLogin()">马上报名</a>
+            <a class="btn btn-info">分享活动</a>
+            <a class="btn btn-info disabled">取消活动</a>
+            <div>
+        </div>
+        <div class="row ptl" ng-init="select=1">
+            <div class="app-tabs">
+                <span ng-click="select=1" ng-class="{active: select==1}">活动简介</span>
+                <span ng-click="select=2" ng-class="{active: select==2}">活动讨论</span>
+                <span ng-click="select=3"  ng-class="{active: select==3}">活动照片</span>
+            </div>
+        </div>
+        <div class="row mam">
+            <div ng-show="select==1" class="">
+                <p class="app-desc">{{e.description}}</p>
+                <hr class="mvm">
+                <p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>
+                <a ng-repeat="u in e.attendees" class="app-user-list">
+                    <img ng-src={{u.profile_image_url}} />
+                    <span>{{u.name}}</span>
                 </a>
-            </li>
-        </ul>
-        <ul ng-init=''>
-            <li ng-repeat="c in e.comment_set">
-                <a>
-                    {{ c.body}}
-                </a>
-            </li>
-        </ul>
-        <ul ng-init=''>
-            <li ng-repeat="img in e.album">
-                <a>
+            </div>
+
+            <div ng-show="select==2">
+                <div ng-repeat="c in e.comment_set">
+                    <div class="pvm">
+                    <div class="pull-left prm">
+                        <img  ng-src={{c.author.profile_image_url}} />
+                    </div>
+                    <div >
+                        <p class="pbm">
+                            <span>{{c.author.name}} : </span>
+                            <span>{{c.body}}</span>
+                        </p>
+                        <p class="mrl prl">
+                            <span><small>{{c.created | date:'MM月dd日 HH:mm'}}</small></span>
+                            <span class="pull-right">
+                                <a href='#'><i class="icon-trash"></i></a>
+                             </span>
+                        </p>
+                    </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div ng-show="select==3">
+                <a ng-repeat="img in e.album">
                     <img ng-src="{{img.base}}{{img.thumbnail2}}">
                 </a>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </div>

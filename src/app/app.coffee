@@ -40,9 +40,9 @@ angular.module( 'app', ['restangular',
     current = null
     Model = {}
     Model.all = -> all
-    Model.current = (e)->
-      current = e if e
-      current
+#    Model.current = (e)->
+#      current = e if e
+#      current
 
     Model.load = (refresh, cb)->
       if all.length
@@ -60,13 +60,39 @@ angular.module( 'app', ['restangular',
 
     Model.get = (id, cb)->
       #wait 1 sec to simulate network congestion
-      #root.one(id).get().then cb
-      $timeout (->root.one(id).get().then cb), 1000
+      #id = id or current.id
+      current = (_.find all, id:Number(id)) or {}
+      if !current.$d
+        #root.one(id).get().then (data)->
+        #  cb _.extend current, data, $d:true
+        $timeout (->root.one(id).get().then (data)->
+          cb _.extend current, data, $d:true
+          ), 1000
+      current
     Model
   )
 
-  .controller('AppCtrl', ($scope) ->
+  .factory('Meta', (Restangular, $location, $timeout)->
+    root = Restangular.one('meta')
+    meta = null
+    Meta = {}
+    Meta.get = (cb)->
+      if !meta
+        root.get().then (data)-> cb meta = data
+      meta
+    Meta
+  )
+
+  .controller('AppCtrl', ($scope, $location, Meta) ->
+    $scope.meta = Meta.get (data)->  $scope.meta = data
+    $scope.title = '集结号'
     $scope.setTitle = (title)-> $scope.title = title
+    $scope.popupLogin = ->
+      $scope.loginPopupShow = true
+      $scope.path = $location.path()
+    $scope.goBack = ->
+      console.log "goback"
+      $location.path "/"
   )
 
 
