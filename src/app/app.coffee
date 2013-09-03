@@ -58,7 +58,7 @@ angular.module( 'app', ['restangular',
         #cb all
         $timeout (->cb all), 1000
 
-    Model.get = (id, cb)->
+    Model.get = (id)->
       #wait 1 sec to simulate network congestion
       #id = id or current.id
       current = (_.find all, id:Number(id)) or {}
@@ -66,7 +66,7 @@ angular.module( 'app', ['restangular',
         #root.one(id).get().then (data)->
         #  cb _.extend current, data, $d:true
         $timeout (->root.one(id).get().then (data)->
-          cb _.extend current, data, $d:true
+          _.extend current, data, $d:true
           ), 1000
       current
     Model
@@ -74,17 +74,17 @@ angular.module( 'app', ['restangular',
 
   .factory('Meta', (Restangular, $location, $timeout)->
     root = Restangular.one('meta')
-    meta = null
+    meta = {}
     Meta = {}
-    Meta.get = (cb)->
-      if !meta
-        root.get().then (data)-> cb meta = data
+    Meta.get = ->
+      if !meta.$d
+        root.get().then (data)->  _.extend meta, data, $d:true
       meta
     Meta
   )
 
   .controller('AppCtrl', ($scope, $location, Meta) ->
-    $scope.meta = Meta.get (data)->  $scope.meta = data
+    $scope.meta = Meta.get()
     $scope.title = '集结号'
     $scope.setTitle = (title)-> $scope.title = title
     $scope.popupLogin = ->

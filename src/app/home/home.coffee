@@ -5,9 +5,9 @@ angular.module('app.home', ['myscroll', 'app.detail'])
 
   .controller( 'HomeCtrl', ($scope, Model, Scroll, $timeout, $location, Meta) ->
 
-    $scope.$watch 'meta', ->
+    $scope.$watchCollection 'meta', ->
       console.log 'watch meta'
-      $scope.setTitle $scope.meta.user.name if $scope.meta and $scope.meta.user
+      $scope.setTitle $scope.meta.user.name if $scope.meta.user
 
     $scope.objects = Model.all()
     $scope.filterStatus = 0
