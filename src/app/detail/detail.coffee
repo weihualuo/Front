@@ -3,12 +3,14 @@ angular.module('app.detail', [])
   .config( () ->
   )
 
-  .controller( 'DetailCtrl', ($scope, Model, $routeParams, $timeout) ->
+  .controller( 'DetailCtrl', ($scope, Many, $routeParams) ->
+    model = Many('events')
     id = $routeParams.id
-    $scope.e = Model.get id
+    $scope.e = model.get id
+
     $scope.$watchCollection 'e', ->
       console.log "watch e"
-      $scope.setTitle $scope.e.title if $scope.e.title
+      $scope.setTitle $scope.e.title
   )
   .run(  -> console.log 'detailrun'
 

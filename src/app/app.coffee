@@ -1,4 +1,3 @@
-
 angular.module( 'app', ['restangular',
                           'templates-app',
                           'templates-common',
@@ -34,15 +33,53 @@ angular.module( 'app', ['restangular',
 #      event
     )
 
+  .factory('Many', (Restangular)->
+    _objs = {}
+    Obj = (name, init)->
+      @ra = Restangular.all name
+      @model =  _.extend objects:[], init
+      @cur = null
+      @load = (more)->
+        objs = @model.objects
+        if more and objs.length
+          if more > 0
+            p = last:objs[objs.length-1].id
+          else if more < 0
+            p = first:objs[0].id
+
+        if more or !@model.$d
+          @ra.getList(p).then (d)=>
+            @model.$d = true
+            if d.length
+              if more > 0
+                angular.forEach d, (v)->objs.push v
+              else
+                _d = []
+                angular.forEach d, (v)-> _d.unshift(v)
+                angular.forEach _d, (v)->objs.unshift(v)
+        objs
+
+      @get = (id)->
+        @cur = (_.find @model.objects, id:Number(id)) or {}
+        if !@cur.$d
+          @ra.one(id).get().then (d)=> _.extend @cur, d, $d:true
+        @cur
+
+      this
+
+    (name, init)->
+      if _objs[name]
+        _objs[name]
+      else
+        _objs[name] = new Obj name, init
+  )
+
   .factory('Model', (Restangular, $location, $timeout)->
     root = Restangular.all('events')
     all = []
     current = null
     Model = {}
     Model.all = -> all
-#    Model.current = (e)->
-#      current = e if e
-#      current
 
     Model.load = (refresh, cb)->
       if all.length
@@ -72,7 +109,7 @@ angular.module( 'app', ['restangular',
     Model
   )
 
-  .factory('Meta', (Restangular, $location, $timeout)->
+  .factory('Meta', (Restangular,  $timeout)->
     root = Restangular.one('meta')
     meta = {}
     Meta = {}
@@ -83,10 +120,42 @@ angular.module( 'app', ['restangular',
     Meta
   )
 
-  .controller('AppCtrl', ($scope, $location, Meta) ->
-    $scope.meta = Meta.get()
-    $scope.title = '集结号'
-    $scope.setTitle = (title)-> $scope.title = title
+  .factory('Single', (Restangular)->
+    _objs = {}
+    Obj = (name, init)->
+      @ra = Restangular.one name
+      @value = _.extend {}, init
+      @get = ->
+        if !@value.$d
+          @ra.get().then (d)=>_.extend @value, d, $d:true
+        @value
+      this
+
+    (name, init)->
+      if _objs[name]
+        _objs[name]
+      else
+        _objs[name] = new Obj name, init
+  )
+
+  .run( ()->
+    console.log 'app run'
+  )
+
+  .controller('AppCtrl', ($scope, $location, Single) ->
+#    $scope.m1 = Single('meta1').get()
+#    $scope.m3 = Single('meta1').get()
+#    $scope.m2 = Single('meta2', abc:'abcd').get()
+#    $scope.$watchCollection 'm1', ->
+#      console.log 'watch m1'
+#      console.log $scope.m1
+#    $scope.$watchCollection 'm2', ->
+#      console.log 'watch m2'
+#      console.log $scope.m2
+
+    $scope.meta = Single('meta').get()
+    $scope.appTitle = '集结号'
+    $scope.setTitle = (title)-> $scope.title = title or $scope.appTitle
     $scope.popupLogin = ->
       $scope.loginPopupShow = true
       $scope.path = $location.path()
