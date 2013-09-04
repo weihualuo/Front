@@ -41,28 +41,30 @@ angular.module( 'app', ['restangular',
       @cur = null
       @load = (more)->
         objs = @model.objects
-        if more and objs.length
-          if more > 0
-            p = last:objs[objs.length-1].id
-          else if more < 0
-            p = first:objs[0].id
 
         if more or !@model.$d
+
+          if more and objs.length
+            if more > 0
+              p = last:objs[objs.length-1].id
+            else if more < 0
+              p = first:objs[0].id
+
+          @model.$d = true
           @ra.getList(p).then (d)=>
-            @model.$d = true
             if d.length
               if more > 0
                 angular.forEach d, (v)->objs.push v
               else
-                _d = []
-                angular.forEach d, (v)-> _d.unshift(v)
-                angular.forEach _d, (v)->objs.unshift(v)
+                angular.forEach d, (v,i)->objs.splice i,0,v
         objs
 
-      @get = (id)->
-        @cur = (_.find @model.objects, id:Number(id)) or {}
-        if !@cur.$d
-          @ra.one(id).get().then (d)=> _.extend @cur, d, $d:true
+      @get = (id, force)->
+        if !@cur or @cur.id isnt id
+          @cur = _.find(@model.objects, id:Number id) or Restangular.one(name, id)
+        if !@cur.$d or force
+          @cur.$d = true
+          @cur.get().then (d)=> _.extend @cur, d
         @cur
 
       this
@@ -125,9 +127,10 @@ angular.module( 'app', ['restangular',
     Obj = (name, init)->
       @ra = Restangular.one name
       @value = _.extend {}, init
-      @get = ->
-        if !@value.$d
-          @ra.get().then (d)=>_.extend @value, d, $d:true
+      @get = (force)->
+        if !@value.$d or force
+          @value.$d = true
+          @ra.get().then (d)=>_.extend @value, d
         @value
       this
 
@@ -154,11 +157,22 @@ angular.module( 'app', ['restangular',
 #      console.log $scope.m2
 
     $scope.meta = Single('meta').get()
-    $scope.appTitle = '集结号'
-    $scope.setTitle = (title)-> $scope.title = title or $scope.appTitle
+    appTitle = '集结号'
+    $scope.setTitle = (title)-> $scope.title = title or appTitle
+
+    $scope.isLogin = -> Boolean $scope.meta.user
+    $scope.loginOrPopup = ->
+      if $scope.meta.user
+        true
+      else
+        $scope.popupLogin()
+        false
+
     $scope.popupLogin = ->
       $scope.loginPopupShow = true
       $scope.path = $location.path()
+
+    $scope.onOption = (option)-> $scope.$broadcast option
     $scope.goBack = ->
       console.log "goback"
       $location.path "/"

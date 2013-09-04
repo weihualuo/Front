@@ -4,6 +4,12 @@
         <!--<a class="option pull-left" href="#/"><i class="fui-arrow-left icon-large"></i> </a>-->
         <!--<h3>{{title}}</h3>-->
     <!--</div>-->
+    <!--<div id="header">-->
+        <!--<a class="option pull-left"><i class="icon-edit icon-large"></i></a>-->
+        <!--<span>{{title}}</span>-->
+        <!--<a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>-->
+    <!--</div>-->
+
     <div id="detail">
         <div class="row app-info">
             <div class="pull-left pas">
@@ -20,7 +26,8 @@
 
         <div class="row pam">
             <div>
-            <a class="btn btn-primary" ng-click="popupLogin()">马上报名</a>
+            <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']">
+                {{text[IamIn]}}</a>
             <a class="btn btn-info">分享活动</a>
             <a class="btn btn-info disabled">取消活动</a>
             <div>

@@ -17,11 +17,13 @@
 
   </head>
   <body ng-init='status = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
-    <div id="header">
+
+  <div id="header">
       <a class="option pull-left"><i class="icon-edit icon-large"></i></a>
       <span>{{title}}</span>
-      <a class="option pull-right"><i class="icon-refresh icon-large"></i></a>
-    </div>
+      <a class="option pull-right" ng-click="onOption('refresh')"><i class="icon-refresh icon-large"></i></a>
+  </div>
+
     <div jqm-caching-view jqm-popup-target="loginPopup" jqm-popup-model="loginPopupShow" jqm-popup-placement="middle">
         <!--<div jqm-footer><h1>{{title}}</h1></div>-->
     </div>

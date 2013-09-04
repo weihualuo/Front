@@ -11,8 +11,8 @@ angular.module('app.home', ['myscroll', 'app.detail'])
       $scope.setTitle $scope.meta.user and $scope.meta.user.name
 
     $scope.objects = model.load()
-    $scope.more = -> model.load(1)
-    $scope.refresh = -> model.load(-1)
+    $scope.onMore = -> model.load(1)
+    $scope.$on 'refresh', -> $log.log 'home refresh'; model.load(-1)
 
     $scope.$watchCollection 'objects', ->
       console.log 'watch objs'
