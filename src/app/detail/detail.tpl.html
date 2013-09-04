@@ -25,11 +25,11 @@
         </div>
 
         <div class="row pam">
-            <div>
-            <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']">
+            <a class="btn btn-primary" ng-click="onEdit()" ng-show="IamOwner">修改活动</a>
+            <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']" ng-hide="IamOwner">
                 {{text[IamIn]}}</a>
-            <a class="btn btn-info">分享活动</a>
-            <a class="btn btn-info disabled">取消活动</a>
+            <a class="btn btn-info" ng-click="onShare()">分享活动</a>
+            <a class="btn btn-inverse" ng-click="onUpload()">上传照片</a>
             <div>
         </div>
         <div class="row ptl" ng-init="select=1">
@@ -39,20 +39,29 @@
                 <span ng-click="select=3"  ng-class="{active: select==3}">活动照片</span>
             </div>
         </div>
-        <div class="row mam">
+        <div class="row pam">
             <div ng-show="select==1" class="">
-                <p class="app-desc">{{e.description}}</p>
+                <p style="white-space:pre-wrap">{{e.description}}</p>
                 <hr class="mvm">
                 <p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>
                 <a ng-repeat="u in e.attendees" class="app-user-list">
-                    <img ng-src={{u.profile_image_url}} />
+                    <img class="v-middle" ng-src={{u.profile_image_url}} />
                     <span>{{u.name}}</span>
                 </a>
             </div>
 
             <div ng-show="select==2">
+                <div style="width: 90%" ng-controller="DetailCtrl">
+                <textarea class="flat" style="width: 100%" ng-model="comment"></textarea>
+                <div class="pvl" style="width: 100%">
+                    <input type="checkbox" ng-model="wbChecked" style="width: auto">
+                    <span>同时发布到新浪微博</span>
+                    <a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>
+                </div>
+                </div>
+
                 <div ng-repeat="c in e.comment_set">
-                    <div class="pvm">
+                    <div class="pvm clearfix">
                     <div class="pull-left prm">
                         <img  ng-src={{c.author.profile_image_url}} />
                     </div>
@@ -63,8 +72,8 @@
                         </p>
                         <p class="mrl prl">
                             <span><small>{{c.created | date:'MM月dd日 HH:mm'}}</small></span>
-                            <span class="pull-right">
-                                <a href='#'><i class="icon-trash"></i></a>
+                            <span class="pull-right" ng-show="meta.user.id===c.author.id">
+                                <a ng-click="onCommentDel(c.id)"><i class="icon-trash"></i></a>
                              </span>
                         </p>
                     </div>

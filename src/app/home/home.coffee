@@ -3,7 +3,7 @@ angular.module('app.home', ['myscroll', 'app.detail'])
   .config( () ->
   )
 
-  .controller( 'HomeCtrl', ($scope, Model, $timeout, $location, Many, $log) ->
+  .controller( 'HomeCtrl', ($scope, $timeout, $location, Many, $log) ->
 
     model = Many('events')
     $scope.$watchCollection 'meta', ->
