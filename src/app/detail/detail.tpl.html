@@ -51,10 +51,10 @@
             </div>
 
             <div ng-show="select==2">
-                <div style="width: 90%" ng-controller="DetailCtrl">
-                <textarea class="flat" style="width: 100%" ng-model="comment"></textarea>
+                <div style="width: 90%" >
+                <textarea class="flat" style="width: 100%" ng-model="form.comment"></textarea>
                 <div class="pvl" style="width: 100%">
-                    <input type="checkbox" ng-model="wbChecked" style="width: auto">
+                    <input type="checkbox" ng-model="form.wbChecked" style="width: auto">
                     <span>同时发布到新浪微博</span>
                     <a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>
                 </div>

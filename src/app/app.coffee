@@ -16,7 +16,12 @@ angular.module( 'app', ['restangular',
       controller: 'DetailCtrl'
       templateUrl: 'detail/detail.tpl.html'
       animation: 'page-slide'
-      )
+    )
+    .when( '/edit/:id'
+      controller: 'EditCtrl'
+      templateUrl: 'edit/edit.tpl.html'
+      animation: 'page-slide'
+    )
     .otherwise(
       redirectTo: '/'
     )
