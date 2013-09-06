@@ -7,7 +7,7 @@ angular.module('app.detail', ['Service', 'app.edit'])
 
     console.log 'DetailCtrl'
     model = Many('events')
-    $scope.e = e = model.get $routeParams.id
+    $scope.e = e = model.get Number $routeParams.id
 
     $scope.$watch 'e.title', -> $scope.setTitle e.title
 

@@ -7,6 +7,8 @@ angular.module('app.edit', [])
   .controller( 'EditCtrl', ($scope, Many, $routeParams, noRepeat) ->
 
     model = Many('events')
-    $scope.e = model.get $routeParams.id
+    id = Number $routeParams.id
+    $scope.e = e = if id then model.get id else null
+    console.log e
 
   )

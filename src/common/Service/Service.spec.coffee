@@ -1,34 +1,36 @@
-describe 'titleService', () ->
-  $document = null
-  titleService = null
 
-  beforeEach module( 'titleService' )
+describe 'noRepeat', ->
+  $timeout = null
+  noRepeat = null
 
-  beforeEach inject( ( _$document_, _titleService_ ) ->
-    $document = _$document_
-    titleService = _titleService_
-  )
+  beforeEach module 'Service'
+#  beforeEach ->  jasmine.Clock.useMock()
+  beforeEach inject (_$timeout_, _noRepeat_) ->
+    $timeout = _$timeout_
+    noRepeat = _noRepeat_
 
-  it 'should set a title without a suffix', inject( () ->
-    title = "new title"
-    titleService.setTitle title
+  it 'should be true at first', inject ()->
+    expect(noRepeat('first',2000)).toBeTruthy()
 
-    expect( titleService.getTitle() ).toEqual( title )
-  )
+  it 'should be false before timeout', inject ()->
+    expect(noRepeat('first')).toBeTruthy()
+    expect(noRepeat('first')).toBeFalsy()
+    expect(noRepeat('first', 1000)).toBeFalsy()
+    $timeout.flush()
+#    jasmine.Clock.tick(3000)
+    expect(noRepeat('first', 3000)).toBeTruthy()
+    expect(noRepeat('first', 3000)).toBeFalsy()
+    $timeout.flush()
+    expect(noRepeat('first', 3000)).toBeTruthy()
 
-  it 'should allow specification of a suffix', inject( () ->
-    suffix = " :: new suffix"
-    titleService.setSuffix suffix
+  it 'should work for multiple objecs', inject ()->
+    expect(noRepeat('first')).toBeTruthy()
+    expect(noRepeat('first')).toBeFalsy()
+    expect(noRepeat('second')).toBeTruthy()
+    expect(noRepeat('second')).toBeFalsy()
+    $timeout.flush()
+    expect(noRepeat('first')).toBeTruthy()
+    expect(noRepeat('second')).toBeTruthy()
 
-    expect( titleService.getSuffix() ).toEqual( suffix )
-  )
 
-  it 'should set the title, including the suffix', inject( () ->
-    title = "New Title"
-    suffix = " :: new suffix"
-    
-    titleService.setSuffix suffix
-    titleService.setTitle title
-    expect( titleService.getTitle() ).toEqual( title + suffix )
-  )
 
