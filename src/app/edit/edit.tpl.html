@@ -1,7 +1,14 @@
 
-<div jqm-page allow-same-view-animation>
-    <div id="detail">
+<div jqm-page>
+    <div id="edit" ng-click="test=test+1">
+        {{test}}
+        {{e.id}}
+        {{e.title}}
 
-
+    </div>
+    <div ng-controller="subCtrl">
+        <div ng-click="onClick()">
+            {{testsub}}
+        </div>
     </div>
 </div>

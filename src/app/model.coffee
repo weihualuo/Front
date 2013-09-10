@@ -1,14 +1,31 @@
-angular.module( 'Model', [])
+angular.module( 'Model', ['restangular'])
+
+  .config( (RestangularProvider) ->
+
+    RestangularProvider.setBaseUrl '/api/'
+#    RestangularProvider.setRequestSuffix '/'
+#    RestangularProvider.setResponseExtractor (response, operation, what, url)->
+#      if operation is 'getList'
+#        res = response.results
+#        res.meta= response.meta
+#      else
+#        res = response
+#      res
+#    RestangularProvider.addElementTransformer 'events', false, (event) ->
+#      event
+  )
+
   .factory('Many', (Restangular)->
     _objs = {}
-    Obj = (name, init)->
+    Obj = (name, option)->
       @ra = Restangular.all name
-      @model =  _.extend objects:[], init
+      @option =  option
+      @objects = []
       @cur = null
       @load = (more)->
-        objs = @model.objects
+        objs = @objects
 
-        if more or !@model.$d
+        if more or !@$d
 
           if more and objs.length
             if more > 0
@@ -16,7 +33,7 @@ angular.module( 'Model', [])
             else if more < 0
               p = first:objs[0].id
 
-          @model.$d = true
+          @$d = true
           @ra.getList(p).then (d)=>
             if d.length
               if more > 0
@@ -27,7 +44,7 @@ angular.module( 'Model', [])
 
       @get = (id, force)->
         if !@cur or @cur.id isnt id
-          @cur = _.find(@model.objects, id:Number id) or Restangular.one(name, id)
+          @cur = _.find(@objects, id:Number id) or Restangular.one(name, id)
         if !@cur.$d or force
           @cur.$d = true
           @cur.get().then (d)=> _.extend @cur, d

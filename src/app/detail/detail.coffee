@@ -36,26 +36,53 @@ angular.module('app.detail', ['Service', 'app.edit'])
     $scope.onEdit = ->
       $location.path("/edit/"+e.id)
 
+#    comment = ""
+#    $scope.form = wbChecked:true, comment:comment
+#
+#    $scope.onComment = ->
+#
+#      if $scope.form.comment is comment then return
+#
+#      if noRepeat('comment',5000) and $scope.loginOrPopup()
+#        comment = $scope.form.comment
+#        e.post('comments', body:comment).then (d)->
+#          e.comment_set.unshift(d)
+#          $scope.form.comment = ""
+#
+#    $scope.onCommentDel = (id)->
+#      e.one('comments', id).remove().then ->
+#        comment = ""
+#        e.comment_set.splice _.findIndex(e.comment_set, id:id), 1
+
+  )
+  .controller( 'CommentCtrl', ($scope, $timeout, noRepeat) ->
+
+    console.log "comment ctrl"
+
     comment = ""
-    $scope.form = wbChecked:true, comment:comment
+    $scope.wbChecked = true
+    $scope.comment = comment
+
+    $scope.$watch 'e', ->
+      console.log "e changed"
 
     $scope.onComment = ->
 
-      if $scope.form.comment is comment then return
+      if $scope.comment is comment then return
 
       if noRepeat('comment',5000) and $scope.loginOrPopup()
-        comment = $scope.form.comment
-        e.post('comments', body:comment).then (d)->
-          e.comment_set.unshift(d)
-          $scope.form.comment = ""
+        comment = $scope.comment
+        $scope.e.post('comments', body:comment).then (d)->
+          $scope.comment = ""
+          $scope.e.comment_set.unshift(d)
+
 
     $scope.onCommentDel = (id)->
-      e.one('comments', id).remove().then ->
+      $scope.e.one('comments', id).remove().then ->
         comment = ""
-        e.comment_set.splice _.findIndex(e.comment_set, id:id), 1
+        $scope.e.comment_set.splice _.findIndex($scope.e.comment_set, id:id), 1
 
   )
-
 
   .run(  ->
     console.log 'detailrun'

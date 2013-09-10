@@ -26,34 +26,13 @@ angular.module( 'app', ['restangular',
       redirectTo: '/'
     )
 
-    RestangularProvider.setBaseUrl '/api/'
-#    RestangularProvider.setRequestSuffix '/'
-#    RestangularProvider.setResponseExtractor (response, operation, what, url)->
-#      if operation is 'getList'
-#        res = response.results
-#        res.meta= response.meta
-#      else
-#        res = response
-#      res
-#    RestangularProvider.addElementTransformer 'events', false, (event) ->
-#      event
-    )
+  )
 
   .run( ()->
     console.log 'app run'
   )
 
   .controller('AppCtrl', ($scope, $location, Single) ->
-#    $scope.m1 = Single('meta1').get()
-#    $scope.m3 = Single('meta1').get()
-#    $scope.m2 = Single('meta2', abc:'abcd').get()
-#    $scope.$watchCollection 'm1', ->
-#      console.log 'watch m1'
-#      console.log $scope.m1
-#    $scope.$watchCollection 'm2', ->
-#      console.log 'watch m2'
-#      console.log $scope.m2
-
 
     appTitle = '集结号'
     popupLogin = ->
