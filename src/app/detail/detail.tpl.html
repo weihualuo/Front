@@ -11,9 +11,9 @@
     <!--</div>-->
 
     <div id="detail">
-        <div class="row app-info">
+        <div class=" app-info">
             <div class="pull-left pas">
-                <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
+                <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
             </div>
             <div class="pam">
                <span>活动类型：{{e.ca}}</span>
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="row pam">
+        <div class=" pam">
             <a class="btn btn-primary" ng-click="onEdit()" ng-show="IamOwner">修改活动</a>
             <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']" ng-hide="IamOwner">
                 {{text[IamIn]}}</a>
@@ -32,15 +32,15 @@
             <a class="btn btn-inverse" ng-click="onUpload()">上传照片</a>
             <div>
         </div>
-        <div class="row ptl" ng-init="select=1">
+        <div class=" ptl" ng-init="select=1">
             <div class="app-tabs">
                 <span ng-click="select=1" ng-class="{active: select==1}">活动简介</span>
                 <span ng-click="select=2" ng-class="{active: select==2}">活动讨论</span>
                 <span ng-click="select=3"  ng-class="{active: select==3}">活动照片</span>
             </div>
         </div>
-        <div class="row pam">
-            <div ng-show="select==1" class="">
+        <div class=" pam app-tab-container" ng-switch="select">
+            <div ng-switch-when="1" class="">
                 <p style="white-space:pre-wrap">{{e.description}}</p>
                 <hr class="mvm">
                 <p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>
@@ -50,7 +50,7 @@
                 </a>
             </div>
 
-            <div ng-show="select==2" ng-controller='CommentCtrl'>
+            <div ng-switch-when="2" ng-controller='CommentCtrl'>
                 <div style="width: 90%" >
                 <textarea class="flat" style="width: 100%" ng-model="comment"></textarea>
                 <div class="pvl" style="width: 100%">
@@ -82,9 +82,9 @@
                 </div>
             </div>
 
-            <div ng-show="select==3">
+            <div ng-switch-when="3">
                 <a ng-repeat="img in e.album">
-                    <img ng-src="{{img.base}}{{img.thumbnail2}}">
+                    <img ng-src="{{meta.imgbase}}{{img.thumbnail2}}">
                 </a>
             </div>
         </div>

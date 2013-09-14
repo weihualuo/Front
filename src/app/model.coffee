@@ -42,6 +42,9 @@ angular.module( 'Model', ['restangular'])
                 angular.forEach d, (v,i)->objs.splice i,0,v
         objs
 
+      @new = (p, cb)->
+        @ra.post(p).then cb
+
       @get = (id, force)->
         if !@cur or @cur.id isnt id
           @cur = _.find(@objects, id:Number id) or Restangular.one(name, id)

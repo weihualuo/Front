@@ -238,3 +238,35 @@ describe 'Model factory', ->
       $rootScope.$apply()
       $httpBackend.flush()
       expect(sanitizeRestangularAll other_objects).toEqualData sanitizeRestangularAll others_new.concat others
+
+
+    it 'should be able to create a item before load', ->
+      p = title:"new item", avenue: "here"
+      newId = id:100
+      $httpBackend.expectPOST('/api/events').respond (method, url, data, headers)->
+        [201, JSON.stringify(_.extend(JSON.parse(data), newId)), ""]
+
+      model = Many('events')
+      newItem = null
+      model.new p, (d)-> newItem = d
+      $rootScope.$apply()
+      $httpBackend.flush()
+      expect(sanitizeRestangularOne newItem).toEqualData(_.extend(p, newId))
+
+    it 'should be able to create a item after load', ->
+      $httpBackend.expectGET('/api/events').respond events
+      model = Many('events')
+      objects = model.load()
+      $rootScope.$apply()
+      $httpBackend.flush()
+
+      p = title:"new item", avenue: "here"
+      newId = id:100
+      $httpBackend.expectPOST('/api/events').respond (method, url, data, headers)->
+        [201, JSON.stringify(_.extend(JSON.parse(data), newId)), ""]
+
+      newItem = null
+      model.new p, (d)-> newItem = d
+      $rootScope.$apply()
+      $httpBackend.flush()
+      expect(sanitizeRestangularOne newItem).toEqualData(_.extend(p, newId))

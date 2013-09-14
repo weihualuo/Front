@@ -49,14 +49,18 @@ module.exports = {
    */
   vendor_files: {
     js: [
-//		'vendor/jquery/jquery.min.js',
-//        'vendor/angular/angular1.0.js',
-//        'vendor/angular/angular-mobile.js',
-//        'vendor/angular-touch/angular-touch.min.js',
+
 //        'vendor/angular-mobile-nav/mobile-nav.min.js',
         'vendor/angular-jqm/components/angular/angular.js',
         'vendor/angular-jqm/components/angular/angular-mobile.js',
         'vendor/angular-jqm/dist/angular-jqm.js',
+//
+//        '../angular-1.2.0-rc.2/angular.js',
+//        '../angular-1.2.0-rc.2/angular-animate.js',
+//        '../angular-1.2.0-rc.2/angular-route.js',
+//        '../angular-1.2.0-rc.2/angular-touch.js',
+//        'vendor/angular-jqm/dist/angular-jqm.js',
+//        '../angular-1.2.0-rc.2/',
 
         'vendor/lodash/lodash.js',
         'vendor/restangular/restangular.min.js',

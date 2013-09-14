@@ -36,24 +36,6 @@ angular.module('app.detail', ['Service', 'app.edit'])
     $scope.onEdit = ->
       $location.path("/edit/"+e.id)
 
-#    comment = ""
-#    $scope.form = wbChecked:true, comment:comment
-#
-#    $scope.onComment = ->
-#
-#      if $scope.form.comment is comment then return
-#
-#      if noRepeat('comment',5000) and $scope.loginOrPopup()
-#        comment = $scope.form.comment
-#        e.post('comments', body:comment).then (d)->
-#          e.comment_set.unshift(d)
-#          $scope.form.comment = ""
-#
-#    $scope.onCommentDel = (id)->
-#      e.one('comments', id).remove().then ->
-#        comment = ""
-#        e.comment_set.splice _.findIndex(e.comment_set, id:id), 1
-
   )
   .controller( 'CommentCtrl', ($scope, $timeout, noRepeat) ->
 

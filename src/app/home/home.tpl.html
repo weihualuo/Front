@@ -17,9 +17,9 @@
             <!--<span class="pullDownIcon"></span><span class="pullDownLabel">下拉可以刷新...</span>-->
         <!--</div>-->
         <ul>
-            <li class="row" ng-repeat="e in objects" ng-click="onDetail(e)">
+            <li class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
                 <div class="pull-left pas">
-                    <img ng-src="{{e.image.base}}{{e.image.thumbnail2}}"/>
+                    <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
                 </div>
                 <div class="pull-left app-info">
                    <span><strong>{{e.title}}</strong></span>

@@ -1,12 +1,7 @@
-angular.module( 'app', ['restangular',
-                          'templates-app',
-                          'templates-common',
-                          'Model',
-                          'app.home',
-                          'jqm'
-                          'ngMobile'
+angular.module( 'app', [   'jqm', 'templates-app', 'templates-common',
+                           'Model', 'app.home',
 ])
-  .config( (RestangularProvider, $routeProvider) ->
+  .config( ($routeProvider) ->
     $routeProvider.when( '/',
       controller: 'HomeCtrl'
       templateUrl: 'home/home.tpl.html'
@@ -34,22 +29,25 @@ angular.module( 'app', ['restangular',
 
   .controller('AppCtrl', ($scope, $location, Single) ->
 
-    appTitle = '集结号'
     popupLogin = ->
       $scope.loginPopupShow = true
       $scope.path = $location.path()
       false
 
     $scope.meta = Single('meta').get()
-    $scope.setTitle = (title)-> $scope.title = title or appTitle
+    $scope.setTitle = (title)-> $scope.title = title or $scope.appTitle
 
     $scope.isLogin = -> Boolean $scope.meta.user
     $scope.loginOrPopup = -> Boolean $scope.meta.user or popupLogin()
 
     $scope.onOption = (option)-> $scope.$broadcast option
+
+    $scope.$on 'new', ->
+      if $scope.loginOrPopup() and $location.path().indexOf("/edit/") isnt 0
+        $location.path("/edit/0")
     $scope.goBack = ->
       console.log "goback"
-      $location.path "/"
+      history.back()
   )
 
 
