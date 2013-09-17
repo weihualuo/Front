@@ -45,9 +45,8 @@ angular.module( 'app', [   'jqm', 'templates-app', 'templates-common',
     $scope.$on 'new', ->
       if $scope.loginOrPopup() and $location.path().indexOf("/edit/") isnt 0
         $location.path("/edit/0")
-    $scope.goBack = ->
-      console.log "goback"
-      history.back()
+
+    $scope.goBack = ->  history.back()
   )
 
 

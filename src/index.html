@@ -19,15 +19,14 @@
   <body ng-init='status = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
 
   <div id="header" ng-init="appTitle='集结号'">
-      <a class="option pull-left" ng-click="onOption('new')"><i class="icon-edit icon-large"></i></a>
+      <a class="option pull-left" href="javascript:history.back()"><i class="icon-chevron-left icon-large"></i></a>
       <span>{{title}}</span>
       <a class="option pull-right" ng-click="onOption('refresh')"><i class="icon-refresh icon-large"></i></a>
+      <a class="option pull-right" ng-click="onOption('new')"><i class="icon-edit icon-large"></i></a>
   </div>
 
   <!--<div ng-view class="app-main"></div>-->
-
-    <div jqm-caching-view jqm-popup-target="loginPopup" jqm-popup-model="loginPopupShow" jqm-popup-placement="middle">
-    </div>
+    <div jqm-caching-view jqm-popup-target="loginPopup" jqm-popup-model="loginPopupShow" jqm-popup-placement="middle"></div>
 
     <div jqm-popup="loginPopup" class="popup">
         <div class="popup-header">

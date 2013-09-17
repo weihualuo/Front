@@ -19,83 +19,124 @@
             <!--<tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br>-->
         <!--</form>-->
         <form name="event" id="form_event" class="form-horizontal pvl" ng-controller='formCtrl'>
-            <div class="control-group required" ng-class="{error: event.title.$valid==false}">
-                <label class="control-label" for="id_title">活动标题</label>
-                <div class="controls">
-                    <input id="id_title" maxlength="100" name="title" type="text" ng-model="d.title" required>
-                    <span class="help-inline error" ng-show="event.title.$error.required">{{required_text}}</span>
-                </div>
-            </div>
 
-            <div class="control-group required" ng-class="{error: event.category.$valid==false}">
-                <label class="control-label" for="id_category">活动类型</label>
-                <div class="controls">
-                    <select id="id_category" name="category" ng-model="d.category" ng-options="c.title_cn for c in meta.ca">
-                    </select>
-                     {{category}}
-                </div>
-            </div>
+            <p>
+                <span ng-show="event.title.$error.required">{{required_text}}</span>
+                <label for="id_title">活动标题：</label>
+                <input id="id_title" maxlength="50" name="title" type="text" ng-model="d.title" required>
+            </p>
 
-            <div class="control-group required" ng-class="{error: event.start_time.$valid==false}">
-                <label class="control-label" for="id_start_time">开始时间</label>
-                <div class="controls">
-                    <div class="input-append">
-                        <input ng-model="d.start_time" id="id_start_time" name="start_time" type="text" required>
-                        <span class="add-on"><i class="icon-calendar"></i></span>
-                    </div>
-                    <span class="help-inline error" ng-show="event.start_time.$error.required">{{required_text}}</span>
-                </div>
-            </div>
+            <p>
+                <label for="id_category">活动类型：</label>
+                <select id="id_category" name="category" ng-model="d.category" ng-options="c.title_cn for c in meta.ca">
+                </select>
+            </p>
 
-            <div class="control-group" ng-class="{error: event.end_time.$valid==false}">
-                <label class="control-label" for="id_end_time">结束时间</label>
-                <div class="controls">
-                    <div class="input-append">
-                        <input ng-model="d.end_time" id="id_end_time" name="end_time" type="text">
-                        <span class="add-on"><i class="icon-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
+            <p>
+                <span ng-show="event.start_time.$error.required">{{required_text}}</span>
+                <label for="id_start_time">开始时间：</label>
+                <input ng-model="d.start_time" id="id_start_time" name="start_time" type="text" required>
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </p>
+
+            <p>
+                <span ng-show="event.end_time.$error.required">{{required_text}}</span>
+                <label for="id_end_time">结束时间：</label>
+                <input ng-model="d.end_time" id="id_end_time" name="end_time" type="text">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </p>
 
 
-            <div class="control-group required" ng-class="{error: event.avenue.$valid==false}">
-                <label class="control-label" for="id_avenue">活动地点</label>
-                <div class="controls">
-                    <input id="id_avenue" maxlength="100" name="avenue" type="text" ng-model="d.avenue" required>
-                    <span class="help-inline error" ng-show="event.avenue.$error.required">{{required_text}}</span>
-                </div>
-            </div>
+            <p>
+                <span ng-show="event.avenue.$error.required">{{required_text}}</span>
+                <label for="id_avenue">活动地点：</label>
+                <input id="id_avenue" maxlength="50" name="avenue" type="text" ng-model="d.avenue" required>
+            </p>
+
+            <p>
+                <span ng-show="event.description.$error.required">{{required_text}}</span>
+                <label for="id_description">活动描述：</label>
+                <textarea cols="60" id="id_description" name="description" rows="0" ng-model="d.description" required></textarea>
+            </p>
+            
+
+            <!--<div class="control-group required" ng-class="{error: event.title.$valid==false}">-->
+                <!--<label class="control-label" for="id_title">活动标题</label>-->
+                <!--<div class="controls">-->
+                    <!--<input id="id_title" maxlength="100" name="title" type="text" ng-model="d.title" required>-->
+                    <!--<span class="help-inline error" ng-show="event.title.$error.required">{{required_text}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="control-group required" ng-class="{error: event.category.$valid==false}">-->
+                <!--<label class="control-label" for="id_category">活动类型</label>-->
+                <!--<div class="controls">-->
+                    <!--<select id="id_category" name="category" ng-model="d.category" ng-options="c.title_cn for c in meta.ca">-->
+                    <!--</select>-->
+                     <!--{{category}}-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="control-group required" ng-class="{error: event.start_time.$valid==false}">-->
+                <!--<label class="control-label" for="id_start_time">开始时间</label>-->
+                <!--<div class="controls">-->
+                    <!--<div class="input-append">-->
+                        <!--<input ng-model="d.start_time" id="id_start_time" name="start_time" type="text" required>-->
+                        <!--<span class="add-on"><i class="icon-calendar"></i></span>-->
+                    <!--</div>-->
+                    <!--<span class="help-inline error" ng-show="event.start_time.$error.required">{{required_text}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="control-group" ng-class="{error: event.end_time.$valid==false}">-->
+                <!--<label class="control-label" for="id_end_time">结束时间</label>-->
+                <!--<div class="controls">-->
+                    <!--<div class="input-append">-->
+                        <!--<input ng-model="d.end_time" id="id_end_time" name="end_time" type="text">-->
+                        <!--<span class="add-on"><i class="icon-calendar"></i></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
 
-            <div class="control-group">
-                <label class="control-label" for="id_image_post">活动海报</label>
-                <div class="controls">
-                    <div class="fileupload fileupload-new" data-provides="fileupload">
-                        <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                            <img ng-src="{{d.imgsrc}}">
-                        </div>
-                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
-                        </div>
-                        <div>
-                        <span class="btn btn-file">
-                            <span class="fileupload-new">选择图片</span>
-                            <span class="fileupload-exists">更换图片</span>
-                            <input type="file" name="image" ng-model="d.image">
-                        </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="control-group required" ng-class="{error: event.avenue.$valid==false}">-->
+                <!--<label class="control-label" for="id_avenue">活动地点</label>-->
+                <!--<div class="controls">-->
+                    <!--<input id="id_avenue" maxlength="100" name="avenue" type="text" ng-model="d.avenue" required>-->
+                    <!--<span class="help-inline error" ng-show="event.avenue.$error.required">{{required_text}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
 
-            <div class="control-group required" ng-class="{error: event.description.$valid==false}">
-                <label class="control-label" for="id_description">活动描述</label>
-                <div class="controls">
-                    <textarea cols="60" id="id_description" name="description" rows="0" ng-model="d.description" required></textarea>
-                    <span class="help-inline error" ng-show="event.description.$error.required">{{required_text}}</span>
-                </div>
-            </div>
 
-            <p class="form-actions">
+            <!--<div class="control-group">-->
+                <!--<label class="control-label" for="id_image_post">活动海报</label>-->
+                <!--<div class="controls">-->
+                    <!--<div class="fileupload fileupload-new" data-provides="fileupload">-->
+                        <!--<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">-->
+                            <!--<img ng-src="{{d.imgsrc}}">-->
+                        <!--</div>-->
+                        <!--<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">-->
+                        <!--</div>-->
+                        <!--<div>-->
+                        <!--<span class="btn btn-file">-->
+                            <!--<span class="fileupload-new">选择图片</span>-->
+                            <!--<span class="fileupload-exists">更换图片</span>-->
+                            <!--<input type="file" name="image" ng-model="d.image">-->
+                        <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="control-group required" ng-class="{error: event.description.$valid==false}">-->
+                <!--<label class="control-label" for="id_description">活动描述</label>-->
+                <!--<div class="controls">-->
+                    <!--<textarea cols="60" id="id_description" name="description" rows="0" ng-model="d.description" required></textarea>-->
+                    <!--<span class="help-inline error" ng-show="event.description.$error.required">{{required_text}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <p>
                 <a class="btn btn-primary" ng-click="onSubmit()">确定</a>
                 <a class="btn btn-inverse" ng-click="goBack()">取消</a>
             </p>
