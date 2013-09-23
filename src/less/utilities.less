@@ -1,0 +1,106 @@
+
+@import "mixinx";
+// from boostrap
+// Utility classes
+// --------------------------------------------------
+
+
+// Quick floats
+.pull-right {
+  float: right;
+}
+.pull-left {
+  float: left;
+}
+
+// Toggling content
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+// Visibility
+.invisible {
+  visibility: hidden;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.fill{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+}
+
+.size(@width, @height) {
+  width: @width;
+  height: @height;
+}
+.square(@size) {
+  .size(@size, @size);
+}
+
+.back{
+  .rotateY(180deg);
+}
+
+.container{
+  .mal;
+  position: relative;
+  overflow: hidden;
+  .perspective(1000);
+}
+
+.face-card{
+  .fill;
+  .preserve3d();
+  .transition(all 1.0s linear);
+  .face{
+    .fill;
+    .rotateY(180deg);
+    &.active{
+      .rotateY(0deg);
+    }
+  }
+}
+
+.shrink{
+  opacity: 0;
+  .transform(scale3d(0,0,1));
+}
+
+.fixbar(@height: @headerHeight) {
+  position:fixed; z-index:2;
+  width:100%;
+  height: @height;
+  line-height: @height;
+  #gradient > .nav-bar;
+  //  background: url(toolbar.png) #6d84a2 repeat-x;
+  padding:0;
+  color:#eee;
+  //  font-size:20px;
+  text-align:center;
+
+  a{
+    color:#f3f3f3;
+    text-decoration:none;
+    font-weight:bold;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.5);
+  }
+}
+
+
+#gradient {
+  .nav-bar{
+    background-color:#222;
+    background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
+    background-image:-moz-linear-gradient(top, #999, #666 2%, #222);
+    background-image:-o-linear-gradient(top, #999, #666 2%, #222);
+  }
+}

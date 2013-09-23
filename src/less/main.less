@@ -1,264 +1,33 @@
 
 
-@import '../../vendor/bootstrap/less/mixins.less';
+
+//@import '../../vendor/bootstrap/less/mixins.less';
 //@import '../../vendor/bootstrap/less/reset.less';
-@import '../../vendor/bootstrap/less/utilities.less';
+//@import '../../vendor/bootstrap/less/utilities.less';
 //@import '../../vendor/bootstrap/less/scaffolding.less';
 //@import '../../vendor/bootstrap/less/type.less';
-@import '../../vendor/bootstrap/less/grid.less';
+//@import '../../vendor/bootstrap/less/grid.less';
 //@import '../../vendor/bootstrap/less/layouts.less';
 //@import '../../vendor/bootstrap/less/navs.less';
 //@import '../../vendor/bootstrap/less/navbar.less';
 //@import '../../vendor/bootstrap/less/buttons.less';
 //@import '../../vendor/bootstrap/less/button-groups.less';
 //@import '../../vendor/bootstrap/less/dropdowns.less';
-@import "../../vendor/bootstrap/less/forms";
+//@import "../../vendor/bootstrap/less/forms";
 
-@import "../../vendor/angular-jqm/components/jquery-mobile/jquery.mobile-1.3.1.min.css";
 @import "../../vendor/font-awesome/less/font-awesome";
 @import "../../vendor/flat-ui/less/flat-ui";
-@import 'variables';
-@import "mixinx";
+
+@import "type";
+@import "utilities";
 
 *{
-  margin: 0 0;
-  padding: 0 0;
+  .backface-visibility(hidden);
+  margin: 0;
+  padding: 0;
 }
-
-//body{
-//  padding-top: @headerHeight;
-//  padding-bottom: @footerHeight;
-//}
-
-#header {
-  .fixbar;
-  top: 0; left: 0;
-  .option{
-    padding: 0 0.5em;
-  }
+body{
+  .user-select(none);
+  position: relative;
+  height:100%;
 }
-
-
-.popup{
-//  width: 60%;
-//  max-width: 400px;
-  div{
-    .pam;
-  }
-  p{
-    text-align: center;
-    .mam;
-  }
-  .popup-header{
-    border-bottom: 1px solid #eee;
-  };
-  .popup-footer{
-    text-align: right; // right align buttons
-    border-top: 1px solid #ddd;
-//    .border-radius(0 0 6px 6px);
-//    .box-shadow(inset 0 1px 0 white);
-    .clearfix(); // clear it in case folks use .pull-* classes on buttons
-  }
-}
-
-a {
-  text-decoration:none;
-  :hover {
-    color: mix(@base, darkgray, 85%);
-  }
-  :active{
-    color: mix(@base, darkgray, 60%);;
-  }
-}
-hr {
-//  margin: 5px 0;
-  border: 0;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #fff;
-}
-
-form{
-  p{
-    .mam;
-  }
-}
-
-.ui-content{
-  margin-top: @headerHeight !important;
-}
-
-.row{
-  .clearfix;
-  width: 100%;
-//  div{
-//    padding: 10px 5px;
-//  }
-}
-
-.app-tabs{
-  padding-bottom: 0 !important;
-  border-bottom: 1px solid mix(@base, darkgray, 85%);
-  span{
-    padding: 0.1em 0.5em;
-    &.active{
-      color: #0000ff;
-      border-bottom: 3px solid mix(@base, blue, 85%);
-    }
-  }
-}
-
-
-.fade-hide, .fade-show {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-}
-
-.fade-hide {
-  opacity:1;
-}
-.fade-hide.fade-hide-active {
-  opacity:0;
-}
-
-.fade-show {
-  opacity:0;
-}
-.fade-show.fade-show-active {
-  opacity:1;
-}
-
-.wave-enter, .wave-leave {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-}
-
-.wave-enter {
-  position:absolute;
-  left:100%;
-}
-
-.wave-enter-active {
-  left:0;
-}
-
-.wave-leave {
-  position:absolute;
-  left:0;
-}
-
-.wave-leave-active {
-  left:-100%;
-}
-
-//
-//.app-tab-container{
-//  position:relative;
-//  .ng-enter, .ng-leave {
-//    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-//    -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-//    -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-//    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-//
-//    position:absolute;
-//    top:0;
-//    left:0;
-//    right:0;
-//    bottom:0;
-//  }
-//
-//  .ng-enter {
-//    top:-50px;
-//  }
-//  .ng-enter.ng-enter-active {
-//    top:0;
-//  }
-//
-//  .ng-leave {
-//    top:0;
-//  }
-//
-//  .ng-leave.ng-leave-active {
-//    top:50px;
-//  }
-//
-//}
-
-
-@import "../common/scroll/scroll";
-@import "../app/home/home";
-@import "../app/detail/detail";
-
-/////////////////////////
-
-//.card {
-//  position:absolute; z-index:1;
-//  top:@headerHeight; bottom:@footerHeight; left: 0px;
-//  width:100%;
-//  //  background:#aaa;
-//  overflow:auto;
-//}
-
-
-//#footer {
-//  .fixbar(@footerHeight);
-//  bottom:0; left:0;
-//}
-
-//.button {
-//  position: absolute;
-//  overflow: hidden;
-//  left: 6px;
-//  top: 8px;
-//  margin: 0;
-//  border-width: 0 5px;
-//  padding: 0 3px;
-//  height: 30px;
-//  line-height: 30px;
-//  font-family: inherit;
-//  font-size: 12px;
-//  font-weight: bold;
-//  color: #FFFFFF;
-//  text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
-//  text-overflow: ellipsis;
-//  text-decoration: none;
-//  white-space: nowrap;
-//  background: none;
-//}
-//
-//.back-button{
-////  float: left;
-//  left: 6px;
-//  text-align: left;
-//  padding: 0;
-////  max-width: 55px;
-//  border-width: 0 8px 0 14px;
-//  margin: auto;
-//  -webkit-border-image: url(backButtonBrdr.png) 0 8 0 14;
-//  -moz-border-image: url(backButtonBrdr.png) 0 8 0 14;
-//  background: url(backButtonBack.png) repeat-x;
-//
-//}
-
-//
-//.app-bar{
-//  a {
-//    text-decoration:none;
-//    :hover {
-//      color: white;
-//    }
-//    :active{
-//      color: white;
-//    }
-//  }
-//  .option{
-//    margin-top: 0.6em;
-//    margin-bottom: 0.8em;
-//    padding: 0 0.5em;
-//  }
-//}
-
-

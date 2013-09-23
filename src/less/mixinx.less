@@ -1,6 +1,201 @@
 
 
+// from Flat UI
+// Mixins
+// --------------------------------------------------
+.transition(@properties) {
+  -webkit-transition: @properties;
+  -moz-transition: @properties;
+  -o-transition: @properties;
+  transition: @properties;
+}
 
+.transform(@properties) {
+  -webkit-transform: @properties;
+  -moz-transform: @properties;
+  -ms-transform: @properties;
+  -o-transform: @properties;
+  transform: @properties;
+}
+
+//extend
+.preserve3d() {
+  -webkit-transform-style: preserve-3d;
+}
+.perspective(@value){
+  -webkit-perspective: @value;
+}
+
+.animation(@properties) {
+  -webkit-animation: @properties;
+  -moz-animation: @properties;
+  -o-animation: @properties;
+  animation: @properties;
+}
+
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.box-sizing(@boxmodel: border-box) {
+  -webkit-box-sizing: @boxmodel;
+  -moz-box-sizing: @boxmodel;
+  box-sizing: @boxmodel;
+}
+
+.box-shadow(@properties) {
+  -webkit-box-shadow: @properties;
+  -moz-box-shadow: @properties;
+  box-shadow: @properties;
+}
+
+.inline-block {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+// User select
+// For selecting text on the page
+.user-select(@select) {
+  -webkit-user-select: @select;
+  -moz-user-select: @select;
+  -ms-user-select: @select;
+  -o-user-select: @select;
+  user-select: @select;
+}
+
+
+.placeholder-height(@height) {
+  &:-moz-placeholder {
+    line-height: @height;
+  }
+  &::-webkit-input-placeholder {
+    line-height: @height;
+  }
+  &.placeholder {
+    line-height: @height;
+  }
+}
+
+
+
+.placeholder-color(@color) {
+  &:-moz-placeholder {
+    color: @color;
+  }
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+  &.placeholder {
+    color: @color;
+  }
+}
+
+
+
+.vertical-gradient(@from, @to) {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @from), color-stop(100%, @to));
+  background: -webkit-linear-gradient(top, @from, @to);
+  background:    -moz-linear-gradient(top, @from, @to);
+  background:     -ms-linear-gradient(top, @from, @to);
+  background:      -o-linear-gradient(top, @from, @to);
+  background:   linear-gradient(to bottom, @from, @to);
+}
+
+.selection(@color) {
+  &::selection {
+    background: @color;
+  }
+  &::-moz-selection {
+    background: @color;
+  }
+}
+
+// bootstap
+// Transformations
+.rotate(@degrees) {
+  -webkit-transform: rotate(@degrees);
+  -moz-transform: rotate(@degrees);
+  -ms-transform: rotate(@degrees);
+  -o-transform: rotate(@degrees);
+  transform: rotate(@degrees);
+}
+
+//extend
+.rotateY(@degrees) {
+  -webkit-transform: rotateY(@degrees);
+  -moz-transform: rotateY(@degrees);
+  -ms-transform: rotateY(@degrees);
+  -o-transform: rotateY(@degrees);
+  transform: rotateY(@degrees);
+}
+
+
+.scale(@ratio) {
+  -webkit-transform: scale(@ratio);
+  -moz-transform: scale(@ratio);
+  -ms-transform: scale(@ratio);
+  -o-transform: scale(@ratio);
+  transform: scale(@ratio);
+}
+.translate(@x, @y) {
+  -webkit-transform: translate(@x, @y);
+  -moz-transform: translate(@x, @y);
+  -ms-transform: translate(@x, @y);
+  -o-transform: translate(@x, @y);
+  transform: translate(@x, @y);
+}
+.skew(@x, @y) {
+  -webkit-transform: skew(@x, @y);
+  -moz-transform: skew(@x, @y);
+  -ms-transform: skewX(@x) skewY(@y); // See https://github.com/twbs/bootstrap/issues/4885
+  -o-transform: skew(@x, @y);
+  transform: skew(@x, @y);
+  -webkit-backface-visibility: hidden; // See https://github.com/twbs/bootstrap/issues/5319
+}
+.translate3d(@x, @y, @z) {
+  -webkit-transform: translate3d(@x, @y, @z);
+  -moz-transform: translate3d(@x, @y, @z);
+  -o-transform: translate3d(@x, @y, @z);
+  transform: translate3d(@x, @y, @z);
+}
+
+// Backface visibility
+// Prevent browsers from flickering when using CSS 3D transforms.
+// Default value is `visible`, but can be changed to `hidden
+// See git pull https://github.com/dannykeane/bootstrap.git backface-visibility for examples
+.backface-visibility(@visibility){
+  -webkit-backface-visibility: @visibility;
+  -moz-backface-visibility: @visibility;
+  backface-visibility: @visibility;
+}
+
+// User select
+// For selecting text on the page
+.user-select(@select) {
+  -webkit-user-select: @select;
+  -moz-user-select: @select;
+  -ms-user-select: @select;
+  -o-user-select: @select;
+  user-select: @select;
+}
+
+// Resize anything
+.resizable(@direction) {
+  resize: @direction; // Options: horizontal, vertical, both
+  overflow: auto; // Safari fix
+}
+
+
+// UTILITY MIXINS
+// --------------------------------------------------
+
+// Clearfix
+// --------
+// For clearing floats like a boss h5bp.com/q
 .clearfix {
   *zoom: 1;
   &:before,
@@ -16,81 +211,16 @@
   }
 }
 
-
-.fixbar(@height: @headerHeight) {
-  position:fixed; z-index:2;
-  width:100%;
-  height: @height;
-  line-height: @height;
-  #gradient > .nav-bar;
-//  background: url(toolbar.png) #6d84a2 repeat-x;
-  padding:0;
-  color:#eee;
-//  font-size:20px;
-  text-align:center;
-
-  a{
-    color:#f3f3f3;
-    text-decoration:none;
-    font-weight:bold;
-    text-shadow:0 -1px 0 rgba(0,0,0,0.5);
-  }
+// Webkit-style focus
+// ------------------
+.tab-focus() {
+  // Default
+  outline: thin dotted #333;
+  // Webkit
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
 
-.size(@height, @width) {
-  width: @width;
-  height: @height;
-}
-.square(@size) {
-  .size(@size, @size);
-}
 
-#gradient {
-  .nav-bar{
-    background-color:#222;
-    background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
-    background-image:-moz-linear-gradient(top, #999, #666 2%, #222);
-    background-image:-o-linear-gradient(top, #999, #666 2%, #222);
-  }
-}
 
-//// Quick floats
-//.pull-right {
-//  float: right;
-//}
-//.pull-left {
-//  float: left;
-//}
 
-// Toggling content
-.hide {
-  display: none;
-}
-.show {
-  display: block;
-}
-
-// Visibility
-.invisible {
-  visibility: hidden;
-}
-
-// For Affix plugin
-.affix {
-  position: fixed;
-}
-
-.text-left           { text-align: left; }
-.text-right          { text-align: right; }
-.text-center         { text-align: center; }
-.v-middle            {vertical-align: middle;}
-
-//.left-button {
-//  .pull-left;
-//  padding: 10px;
-//
-//}
-//.right-button {
-//  .pull-right;
-//  padding: 10px;
-//}
