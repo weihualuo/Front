@@ -1,6 +1,6 @@
 
 
-angular.module( 'myscroll', []).
+angular.module( 'myiscroll', []).
     factory('Scroll', function(){
 
         var myScroll,

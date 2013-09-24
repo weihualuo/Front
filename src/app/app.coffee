@@ -1,11 +1,10 @@
-angular.module( 'app', [   'jqm', 'templates-app', 'templates-common',
+angular.module( 'app', ['ngRoute', 'templates-app', 'templates-common',
                            'Model', 'app.home',
 ])
   .config( ($routeProvider) ->
     $routeProvider.when( '/',
       controller: 'HomeCtrl'
       templateUrl: 'home/home.tpl.html'
-      animation: 'page-slide-reverse'
     )
     .when( '/detail/:id'
       controller: 'DetailCtrl'

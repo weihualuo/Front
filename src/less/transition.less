@@ -2,6 +2,23 @@
 
 
 
+@-webkit-keyframes turn2front {
+  0% { -webkit-transform: rotateY(180deg); }
+  100% { -webkit-transform: rotateY(0deg); }
+}
+@-webkit-keyframes turn2back {
+  0% { -webkit-transform: rotateY(-180deg); }
+  100% { -webkit-transform: rotateY(0deg); }
+}
+
+.turnfront{
+  -webkit-animation: turn2front 1s ease-in-out;
+}
+.turnback{
+  -webkit-animation: turn2back 1s ease-in-out;
+}
+
+
 /*
  * Slide
  * slide pages horizontally

@@ -270,3 +270,24 @@ describe 'Model factory', ->
       $rootScope.$apply()
       $httpBackend.flush()
       expect(sanitizeRestangularOne newItem).toEqualData(_.extend(p, newId))
+
+    it 'should call callback function after load', ->
+      $httpBackend.expectGET('/api/events').respond events
+      callback = jasmine.createSpy 'callback'
+      model = Many('events')
+      objects = model.load(-1, callback)
+      $rootScope.$apply()
+      $httpBackend.flush()
+      expect(callback).toHaveBeenCalled()
+      expect(sanitizeRestangularAll callback.mostRecentCall.args[0]).toEqualData sanitizeRestangularAll events
+
+    it "should call callback function after fetch", inject (Restangular)->
+      $httpBackend.expectGET('/api/events/21').respond item
+      callback = jasmine.createSpy 'callback'
+      model = Many('events')
+      cur = model.get 21, true, callback
+      $rootScope.$apply()
+      $httpBackend.flush()
+      expect(callback).toHaveBeenCalled()
+      expect(sanitizeRestangularOne callback.mostRecentCall.args[0]).toEqualData sanitizeRestangularOne item
+

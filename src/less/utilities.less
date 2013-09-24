@@ -51,22 +51,24 @@
 }
 
 .container{
-  .mal;
   position: relative;
+  .size(100%,100%);
   overflow: hidden;
   .perspective(1000);
 }
 
-.face-card{
+.face-container{
+  .container;
+  overflow: inherit;
+}
+
+
+.faces{
   .fill;
   .preserve3d();
   .transition(all 1.0s linear);
   .face{
     .fill;
-    .rotateY(180deg);
-    &.active{
-      .rotateY(0deg);
-    }
   }
 }
 
@@ -75,8 +77,45 @@
   .transform(scale3d(0,0,1));
 }
 
+.layer-container{
+  .container;
+}
+.layers{
+  .fill;
+  .preserve3d();
+  .layer{
+    .preserve3d();
+    .fill;
+    background: #ffffff;
+    &.layer-shrink{
+      .shrink;
+      &.present{
+        opacity: 1;
+        .transform(scale3d(1,1,1));
+      }
+    }
+    &.layer-right{
+      .transform(translate3d(100%, 0, 0));
+      &.present{
+        .transform(translate3d(0, 0, 0));
+      }
+    }
+    &.layer-left{
+      .transform(translate3d(-100%, 0, 0));
+      &.present{
+        .transform(translate3d(0, 0, 0));
+      }
+    }
+    .transition(all 1.0s ease-in-out);
+  }
+}
+
+
+
+
+
 .fixbar(@height: @headerHeight) {
-  position:fixed; z-index:2;
+  position:relative; z-index:2;
   width:100%;
   height: @height;
   line-height: @height;

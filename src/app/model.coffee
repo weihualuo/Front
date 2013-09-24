@@ -22,7 +22,7 @@ angular.module( 'Model', ['restangular'])
       @option =  option
       @objects = []
       @cur = null
-      @load = (more)->
+      @load = (more, cb)->
         objs = @objects
 
         if more or !@$d
@@ -40,17 +40,20 @@ angular.module( 'Model', ['restangular'])
                 angular.forEach d, (v)->objs.push v
               else
                 angular.forEach d, (v,i)->objs.splice i,0,v
+            if cb then cb d
         objs
 
       @new = (p, cb)->
         @ra.post(p).then cb
 
-      @get = (id, force)->
+      @get = (id, force, cb)->
         if !@cur or @cur.id isnt id
           @cur = _.find(@objects, id:Number id) or Restangular.one(name, id)
         if !@cur.$d or force
           @cur.$d = true
-          @cur.get().then (d)=> _.extend @cur, d
+          @cur.get().then (d)=>
+            _.extend @cur, d
+            if cb then cb d
         @cur
 
       this

@@ -1,43 +1,41 @@
 
-<div jqm-page>
-    <!--<div jqm-header jqm-theme='c' class="app-bar">-->
-        <!--<a class="option pull-left"><i class="icon-edit icon-large"></i></a>-->
-        <!--<a class="option pull-right">登陆</a>-->
-        <!--<h3>{{title}}</h3>-->
-    <!--</div>-->
+<div class="layer-container" ng-init='status = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
+    <div class="layers" ng-init="layer=1" >
+        <div id="layerhome" class="layer">
 
-    <!--<div id="header">-->
-        <!--<a class="option pull-left"><i class="icon-edit icon-large"></i></a>-->
-        <!--<span>{{title}}</span>-->
-        <!--<a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>-->
-    <!--</div>-->
+            <div class="header">
+                <a class="option pull-left"><i class="icon-edit icon-large"></i></a>
+                <span>集结号</span>
+                <a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
+            </div>
 
-    <div id="home">
-        <!--<div id="pullDown" data-flip="松开即可刷新..." data-load="加载中...">-->
-            <!--<span class="pullDownIcon"></span><span class="pullDownLabel">下拉可以刷新...</span>-->
-        <!--</div>-->
-        <ul>
-            <li class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
-                <div class="pull-left pas">
-                    <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
+            <div class="content" hscroll>
+                <div class="pull pullDown" ng-init="pullText=['下拉可以刷新...', '松开即可刷新...', '加载中...']; pullStatus=2">
+                    <span class="pullIcon pullDown" ng-class="{flip:pullStatus==1,loading:pullStatus==2}"></span>
+                    <span class="pullDownLabel">{{pullText[pullStatus]}}</span>
                 </div>
-                <div class="pull-left app-info">
-                   <span><strong>{{e.title}}</strong></span>
-                    <span class="event_attr event_ca">
-                    类别：{{e.ca}}
-                    </span>
-                    <span class="event_attr event_time">
-                    时间：{{e.start_time| date:'MM月dd日 HH:mm'}}
-                    </span>
-                    <span class="event_attr event_avenue">地点：{{e.avenue}}</span>
+                <div class="clearfix pas" ng-repeat="e in objects">
+                    <div class="pull-left pas">
+                        <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
+                    </div>
+                    <div class="pull-left">
+                        <span><strong>{{e.title}}</strong></span><br>
+                        <span class="event_attr event_ca">类别：{{e.ca}}</span><br>
+                        <span class="event_attr event_time">时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
+                        <span class="event_attr event_avenue">地点：{{e.avenue}}</span>
+                    </div>
+                    <div class="pull-right">
+                        <span>{{status[e.status+1]}}</span>
+                    </div>
                 </div>
-                <div class="pull-right">
-                   <span>{{status[e.status+1]}}</span>
+                <div id="pullUp" class="idle" ng-click="onMore()">
+                    <span class="pullUpIcon"></span><span class="pullUpLabel">加载更多...</span>
                 </div>
-            </li>
-        </ul>
-        <div id="pullUp" class="idle" ng-click="onMore()">
-            <span class="pullUpIcon"></span><span class="pullUpLabel">加载更多...</span>
+            </div>
+
         </div>
+        <div id="layer2" class="layer layer-left" ng-class="{present: layer>=2}"> layer2 </div>
+        <div id="layer3" class="layer layer-right" ng-class="{present: layer>=3}"> layer3 </div>
+        <div id="layer4" class="layer layer-shrink" ng-class="{present: layer>=4}"> layer4 </div>
     </div>
 </div>
