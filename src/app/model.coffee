@@ -15,7 +15,7 @@ angular.module( 'Model', ['restangular'])
 #      event
   )
 
-  .factory('Many', (Restangular)->
+  .factory('Many', (Restangular, $timeout)->
     _objs = {}
     Obj = (name, option)->
       @ra = Restangular.all name
@@ -34,13 +34,14 @@ angular.module( 'Model', ['restangular'])
               p = first:objs[0].id
 
           @$d = true
-          @ra.getList(p).then (d)=>
+          @ra.getList(p).then (d)=> $timeout (->
             if d.length
               if more > 0
                 angular.forEach d, (v)->objs.push v
               else
                 angular.forEach d, (v,i)->objs.splice i,0,v
             if cb then cb d
+            ),1000
         objs
 
       @new = (p, cb)->
@@ -51,9 +52,10 @@ angular.module( 'Model', ['restangular'])
           @cur = _.find(@objects, id:Number id) or Restangular.one(name, id)
         if !@cur.$d or force
           @cur.$d = true
-          @cur.get().then (d)=>
+          @cur.get().then (d)=>  $timeout (->
             _.extend @cur, d
             if cb then cb d
+            ),1000
         @cur
 
       this

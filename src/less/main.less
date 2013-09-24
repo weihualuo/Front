@@ -51,11 +51,16 @@ html, body, .viewport{
   height:40px;
   line-height:40px;
   padding:5px 10px;
-  border-bottom:1px solid #ccc;
   font-weight:bold;
   font-size:14px;
   color:#888;
   text-align: center;
+  &.pullDown{
+    border-bottom:1px solid #ccc;
+  }
+  &.pullUp{
+    border-top:1px solid #ccc;
+  }
   .pullIcon{
     display:block; float:left;
     width:40px; height:40px;
@@ -68,7 +73,11 @@ html, body, .viewport{
         -webkit-transform:rotate(-180deg)
       }
     }
+    &.pullUp{
+      display:none;
+    }
     &.loading{
+      display:block;
       background-position:0 100%;
       -webkit-transform:rotate(0deg);
       -webkit-transition-duration:0ms;
