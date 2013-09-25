@@ -43,7 +43,7 @@
                 <div class="mtl">
                     <div class="container" iauto-height>
                         <div ihshift isel="select" imargin=30>
-                            <div style="background: blanchedalmond" ivscroll>
+                            <div style="background: blanchedalmond" ivscroll ivreset="e">
                                 <p style="white-space:pre-wrap">{{e.description}}</p>
                                 <hr>
                                 <p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>
@@ -52,11 +52,11 @@
                                     <span>{{u.name}}</span>
                                 </a>
                             </div>
-                            <div style="background: cadetblue" ng-controller='CommentCtrl' ivscroll>
+                            <div style="background: cadetblue" ng-controller='CommentCtrl' ivscroll ivreset="e">
                                 <div>
                                     <input ng-model="comment" type="text">
                                     <a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>
-                                    <div>
+                                    <div style="clear: both">
                                         <input type="checkbox" ng-model="wbChecked" style="width: auto">
                                         <span>同时发布到新浪微博</span>
                                     </div>
@@ -83,7 +83,7 @@
                                     <hr>
                                 </div>
                             </div>
-                            <div style="background: darkgray" ivscroll>
+                            <div style="background: darkgray" ivscroll ivreset="e">
                                 <a ng-repeat="img in e.album">
                                     <img ng-src="{{meta.imgbase}}{{img.thumbnail2}}">
                                 </a>

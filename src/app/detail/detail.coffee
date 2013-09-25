@@ -51,9 +51,6 @@ angular.module('app.detail', ['Service', 'app.edit'])
     $scope.wbChecked = true
     $scope.comment = comment
 
-    $scope.$watch 'e', ->
-      console.log "e changed"
-
     $scope.onComment = ->
 
       if $scope.comment is comment then return
@@ -72,6 +69,3 @@ angular.module('app.detail', ['Service', 'app.edit'])
 
   )
 
-  .run(  ->
-    console.log 'detailrun'
-  )
