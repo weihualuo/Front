@@ -22,7 +22,14 @@ angular.module('app.home', ['myscroll', 'app.detail'])
       model.load 1, -> $scope.moreStatus=3
 
     $scope.onDetail = (e)->
-      $location.path("/detail/"+e.id)
+      $scope.e = e
+      $scope.layer = 2
+
+    $scope.onBack = (from)->
+      $scope.layer = 1
+    $scope.turnBack = (from)->
+      $scope.back = !$scope.back
+
 
     $scope.$watchCollection 'objects', ->  console.log 'watch objs'
     $scope.$on '$destroy', -> console.log 'scope destroy'

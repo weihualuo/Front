@@ -3,8 +3,8 @@
 
 
 @-webkit-keyframes turn2front {
-  0% { -webkit-transform: rotateY(180deg); }
-  100% { -webkit-transform: rotateY(0deg); }
+  0% { -webkit-transform: rotate3d(0,1,0,180deg); }
+  100% { -webkit-transform: rotate3d(0,0,0,0deg); }
 }
 @-webkit-keyframes turn2back {
   0% { -webkit-transform: rotateY(-180deg); }
@@ -12,10 +12,10 @@
 }
 
 .turnfront{
-  -webkit-animation: turn2front 1s ease-in-out;
+  -webkit-animation: turn2front 0.5s linear;
 }
 .turnback{
-  -webkit-animation: turn2back 1s ease-in-out;
+  -webkit-animation: turn2back 0.5s linear;
 }
 
 

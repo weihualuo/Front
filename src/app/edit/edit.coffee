@@ -7,9 +7,13 @@ angular.module('app.edit', [])
   .controller( 'EditCtrl', ($scope, Many, $routeParams, noRepeat, $timeout) ->
 
     model = Many('events')
-    id = Number $routeParams.id
-    $scope.e = e = if id then model.get id else {}
-    console.log e
+    $scope.$watch 'e', ->
+    if $scope.e
+      e = model.get $scope.e.id
+#
+#    id = Number $routeParams.id
+#    $scope.e = e = if id then model.get id else {}
+#    console.log e
 
   )
 
@@ -26,7 +30,7 @@ angular.module('app.edit', [])
     $scope.$watchCollection 'e', ->
       # e = {}, or Restangular object or real object
       console.log "watch e"
-      e = $scope.e
+      e = $scope.e or {}
       d.title = e.title
       d.category = e.category and _.find($scope.meta.ca, id:$scope.e.category) or category
       d.start_time = e.start_time and new Date(e.start_time).toLocaleString() or null

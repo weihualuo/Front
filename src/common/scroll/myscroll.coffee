@@ -1,6 +1,6 @@
 
 angular.module( 'myscroll', [])
-.directive('ihscroll', ($document)->  (scope, el, attr)->
+.directive('ivscroll', ()->  (scope, el, attr)->
   y = 0
   moving = no
   offset = 0
@@ -9,10 +9,10 @@ angular.module( 'myscroll', [])
   startPull = 5
   THRESHOLD = 2
   viewHeight = el.parent()[0].offsetHeight
-  if attr.ipull?
+  pull = attr.ipull
+  if pull
     viewHeight -= el[0].offsetTop
-    pull = el.children()[0]
-    offset = -pull.offsetHeight
+    offset = -el.children()[0].offsetHeight
 
   # function from angular touch
   `function getCoordinates(event) {
@@ -30,9 +30,8 @@ angular.module( 'myscroll', [])
   `
   # backticks end
 
-  scope.$watch 'pullStatus', (newValue, oldValue)->
+  scope.$watch pull, (newValue, oldValue)->
     if newValue is 0 and oldValue is 2
-
       y = offset
       el.css {"-webkit-transform": "translate3d(0, #{y}px, 0)"}
       console.log "refesh finished"
@@ -41,18 +40,18 @@ angular.module( 'myscroll', [])
 #    e.preventDefault()
     startY = getCoordinates(e).y - y
     el.on 'touchmove mousemove', onMove
+    el.on 'touchend mouseup', onMoveEnd
     console.log "touchstart", y
 
   onMove = (e)->
 
+    e.preventDefault()
     pos = getCoordinates(e).y - startY
     if Math.abs(pos - y)< THRESHOLD then return
 
-    e.preventDefault()
     if !moving
       moving = yes
       el.css {"-webkit-transition": "none"}
-      el.on 'touchend mouseup', onMoveEnd
 
     y = pos
     # margin >= y >= viewHeight-el[0].offsetHeight-margin
@@ -65,11 +64,11 @@ angular.module( 'myscroll', [])
     # else y = y
 
     if pull
-      if scope.pullStatus is 0 and y > startPull
-        scope.pullStatus  = 1
+      if scope[pull] is 0 and y > startPull
+        scope[pull]  = 1
         scope.$apply()
-      else if scope.pullStatus is 1 and y < startPull
-        scope.pullStatus  = 0
+      else if scope[pull] is 1 and y < startPull
+        scope[pull]  = 0
         scope.$apply()
 
     el.css {"-webkit-transform": "translate3d(0, #{y}px, 0)"}
@@ -83,8 +82,8 @@ angular.module( 'myscroll', [])
     moving = no
     el.css {"-webkit-transition": "all 0.3s ease-in"}
 
-    if pull and scope.pullStatus is 1
-      scope.pullStatus = 2
+    if pull and scope[pull] is 1
+      scope[pull] = 2
       scope.$apply()
 
 #    set y to valid values
@@ -92,13 +91,13 @@ angular.module( 'myscroll', [])
 #    y = 0
 #    y = offset
     if y > offset
-      if scope.pullStatus is 2 then y = 0
+      if scope[pull] is 2 then y = 0
       else y = offset
     else if el[0].offsetHeight > viewHeight
       if y < viewHeight-el[0].offsetHeight then y = viewHeight-el[0].offsetHeight
       # else y = y
     else if y < offset
-      if scope.pullStatus is 2 then y = 0
+      if scope[pull] is 2 then y = 0
       else y = offset
 
     el.css {"-webkit-transform": "translate3d(0, #{y}px, 0)"}
