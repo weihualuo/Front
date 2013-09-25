@@ -1,17 +1,70 @@
 
-angular.module( 'myscroll', [])
+angular.module( 'myscroll', ['ngTouch'])
+
+  .directive('iautoHeight', -> (scope, el)->
+    height = document.height - el[0].offsetTop - 5
+    el.css height:height+'px'
+  )
+
+  .directive('ihshift', ($swipe)-> (scope, el, attr)->
+
+    cards = el.children()
+    style = position:"absolute", width:"100%", height:"100%"
+    margin = Number(attr.imargin) or 0
+    isel = attr.isel or "card"
+    width = el[0].offsetWidth
+    offset = 0
+    startX = 0
+    x = 0
+    el.css height:"100%"
+    for card in cards
+      card.style['-webkit-transform'] = "translate3d(#{offset}px, 0, 0)"
+      angular.extend card.style, style
+      offset += width
+
+    $swipe.bind el,
+      'start': (coords)->
+        startX = coords.x - x
+        el.css {"-webkit-transition": "none"}
+        console.log 'start'
+
+      'cancel': (coords)-> console.log 'cancel'
+
+      'move': (coords)->
+        x = coords.x - startX
+        if x > margin then x = margin
+        else if x < width - offset - margin then  x = width - offset - margin
+        el.css "-webkit-transform": "translate3d(#{x}px, 0, 0)"
+        console.log 'move', x
+
+      'end': (coords)->
+        card = scope[isel]
+        scope[isel] = - Math.round x/width
+        if card isnt scope[isel] then scope.$apply()
+        else
+          x = width * Math.round(x/width)
+          el.css {"-webkit-transition": "all 0.3s ease-in"}
+          el.css "-webkit-transform": "translate3d(#{x}px, 0, 0)"
+        console.log 'end'
+
+    scope.$watch isel, (newValue, oldValue)->
+      x = -newValue * width
+      if newValue isnt oldValue
+        el.css {"-webkit-transition": "all 0.5s ease-in"}
+      el.css "-webkit-transform": "translate3d(#{x}px, 0, 0)"
+  )
+
 .directive('ivscroll', ()->  (scope, el, attr)->
   y = 0
   moving = no
   offset = 0
   startY = 0
-  margin = Number(attr.imargin) or 40
+  margin = Number(attr.imargin) or 0
   startPull = 5
   THRESHOLD = 2
-  viewHeight = el.parent()[0].offsetHeight
+  viewHeight = el.parent()[0].offsetHeight - el[0].offsetTop
   pull = attr.ipull
   if pull
-    viewHeight -= el[0].offsetTop
     offset = -el.children()[0].offsetHeight
 
   # function from angular touch
@@ -72,11 +125,12 @@ angular.module( 'myscroll', [])
         scope.$apply()
 
     el.css {"-webkit-transform": "translate3d(0, #{y}px, 0)"}
-    console.log "move ", y
+    console.log "move ", y, viewHeight, el[0].offsetHeight
 
   onMoveEnd = (e)->
     el.off 'touchmove mousemove', onMove
     el.off 'touchend mouseup', onMoveEnd
+    console.log "moveend"
     if !moving then return
     e.preventDefault()
     moving = no
@@ -101,7 +155,8 @@ angular.module( 'myscroll', [])
       else y = offset
 
     el.css {"-webkit-transform": "translate3d(0, #{y}px, 0)"}
-    console.log "moveend"
+
+
 
 #  el.css background:'gray'
 

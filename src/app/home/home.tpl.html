@@ -38,17 +38,7 @@
 
         </div>
         <div id="layer2" class="layer layer-shrink" ng-class="{present: layer>=2}">
-            <div class="face-container">
-                <div class="faces" ng-class="{turnfront:back===false,turnback:back}"  ng-init="back=0">
-                    <div class="face" ng-class="{back:back}">
-                        <div ng-include="'detail/detail.tpl.html'" ng-controller="DetailCtrl"></div>
-                    </div>
-                    <div class="face" ng-class="{back:!back}">
-                        <div ng-include="'edit/edit.tpl.html'" ng-controller="EditCtrl"></div>
-                    </div>
-                </div>
-            </div>
-
+            <div class="fill" ng-include="'detail/detail.tpl.html'"></div>
         </div>
         <div id="layer3" class="layer layer-right" ng-class="{present: layer>=3}"> layer3 </div>
         <div id="layer4" class="layer layer-shrink" ng-class="{present: layer>=4}"> layer4 </div>

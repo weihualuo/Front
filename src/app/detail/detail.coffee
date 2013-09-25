@@ -39,9 +39,8 @@ angular.module('app.detail', ['Service', 'app.edit'])
       no
     $scope.onUpload = ->
       no
-    $scope.onEdit = ->
-      $scope.turnBack(2)
-#      $location.path("/edit/"+e.id)
+    $scope.onEdit = ->  $scope.turnBack()
+    $scope.turnBack = -> $scope.back = !$scope.back
 
   )
   .controller( 'CommentCtrl', ($scope, $timeout, noRepeat) ->

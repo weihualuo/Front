@@ -37,14 +37,16 @@ describe 'Model factory', ->
 
   $rootScope = null
   $httpBackend = null
+  $timeout = null
   Many = null
   Single = null
 
-  beforeEach inject (_$httpBackend_, _Many_, _Single_,_$rootScope_)->
+  beforeEach inject (_$httpBackend_, _Many_, _Single_,_$rootScope_,_$timeout_)->
     Many = _Many_
     Single = _Single_
     $httpBackend = _$httpBackend_
     $rootScope = _$rootScope_
+    $timeout = _$timeout_
 
 
   describe 'Single factory', ->
@@ -110,6 +112,8 @@ describe 'Model factory', ->
       $rootScope.$apply()
       expect(objects).toEqual([])
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events
       model.load()
       #apply should be used to verify there is no Unexpected request
@@ -124,12 +128,16 @@ describe 'Model factory', ->
       objects = model.load(-10)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events
 
       $httpBackend.expectGET('/api/events?first=21').respond events_new
       model.load(-1)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events_new.concat events
 
 
@@ -140,12 +148,16 @@ describe 'Model factory', ->
       objects = model.load(10)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events
 
       $httpBackend.expectGET('/api/events?last=22').respond events_more
       model.load(1)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events.concat events_more
 
     it 'should fetch item details only on the first visit', ->
@@ -154,12 +166,16 @@ describe 'Model factory', ->
       objects = model.load()
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
 
       $httpBackend.expectGET('/api/events/21').respond item
       cur = model.get 21
       expect(cur).toEqual(objects[0])
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(cur).toEqual(objects[0])
       expect(cur).toEqualData(item)
 
@@ -168,6 +184,8 @@ describe 'Model factory', ->
       expect(cur).toEqual(objects[1])
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(cur).toEqual(objects[1])
       expect(cur).toEqualData(item2)
 
@@ -187,6 +205,8 @@ describe 'Model factory', ->
       expect(cur).toEqualData(Restangular.one('events', 21))
 
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(cur).toEqualData(item)
 
       # should get the same object on the later request
@@ -201,6 +221,8 @@ describe 'Model factory', ->
       cur = model.get 21
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(cur).toEqualData(item)
 
       extra = extra:"extra value", title: "title new"
@@ -208,6 +230,8 @@ describe 'Model factory', ->
       model.get 21, true
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(cur).toEqualData(_.extend(cur, extra))
 
 
@@ -220,6 +244,8 @@ describe 'Model factory', ->
       other_objects = other.load()
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events
       expect(sanitizeRestangularAll other_objects).toEqualData sanitizeRestangularAll others
       #no further request
@@ -231,12 +257,16 @@ describe 'Model factory', ->
       model.load(1)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll objects).toEqualData sanitizeRestangularAll events.concat events_more
 
       $httpBackend.expectGET('/api/others?first=21').respond others_new
       other.load(-1)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularAll other_objects).toEqualData sanitizeRestangularAll others_new.concat others
 
 
@@ -251,6 +281,8 @@ describe 'Model factory', ->
       model.new p, (d)-> newItem = d
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularOne newItem).toEqualData(_.extend(p, newId))
 
     it 'should be able to create a item after load', ->
@@ -259,6 +291,8 @@ describe 'Model factory', ->
       objects = model.load()
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
 
       p = title:"new item", avenue: "here"
       newId = id:100
@@ -269,6 +303,8 @@ describe 'Model factory', ->
       model.new p, (d)-> newItem = d
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(sanitizeRestangularOne newItem).toEqualData(_.extend(p, newId))
 
     it 'should call callback function after load', ->
@@ -278,6 +314,8 @@ describe 'Model factory', ->
       objects = model.load(-1, callback)
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(callback).toHaveBeenCalled()
       expect(sanitizeRestangularAll callback.mostRecentCall.args[0]).toEqualData sanitizeRestangularAll events
 
@@ -288,6 +326,8 @@ describe 'Model factory', ->
       cur = model.get 21, true, callback
       $rootScope.$apply()
       $httpBackend.flush()
+      #test evn
+      $timeout.flush()
       expect(callback).toHaveBeenCalled()
       expect(sanitizeRestangularOne callback.mostRecentCall.args[0]).toEqualData sanitizeRestangularOne item
 

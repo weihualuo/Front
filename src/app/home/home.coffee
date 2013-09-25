@@ -27,8 +27,6 @@ angular.module('app.home', ['myscroll', 'app.detail'])
 
     $scope.onBack = (from)->
       $scope.layer = 1
-    $scope.turnBack = (from)->
-      $scope.back = !$scope.back
 
 
     $scope.$watchCollection 'objects', ->  console.log 'watch objs'
