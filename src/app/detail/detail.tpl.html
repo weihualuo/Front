@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="mtl">
-                    <div class="container" iauto-height>
+                    <div class="container" ifill-bottom imargin=4>
                         <div ihshift isel="select" imargin=30>
                             <div style="background: blanchedalmond" ivscroll ivreset="e">
                                 <p style="white-space:pre-wrap">{{e.description}}</p>
@@ -54,7 +54,7 @@
                             </div>
                             <div style="background: cadetblue" ng-controller='CommentCtrl' ivscroll ivreset="e">
                                 <div>
-                                    <input ng-model="comment" type="text">
+                                    <input class="pull-left" ng-model="comment" type="text" ifill-left imargin=4>
                                     <a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>
                                     <div style="clear: both">
                                         <input type="checkbox" ng-model="wbChecked" style="width: auto">

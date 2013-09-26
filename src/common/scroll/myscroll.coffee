@@ -1,9 +1,17 @@
 
 angular.module( 'myscroll', ['ngTouch'])
 
-  .directive('iautoHeight', -> (scope, el)->
-    height = document.height - el[0].offsetTop - 5
+  .directive('ifillBottom', -> (scope, el, attr)->
+    margin = Number(attr.imargin) or 0
+    height = el[0].offsetParent.offsetHeight - el[0].offsetTop - margin
     el.css height:height+'px'
+  )
+
+  .directive('ifillLeft', -> (scope, el, attr)->
+    margin = Number(attr.imargin) or 0
+    height = el[0].nextElementSibling.offsetHeight
+    width = el[0].nextElementSibling.offsetLeft - margin
+    el.css width:width+'px', height:height+'px', boxSizing:"border-box"
   )
 
   .directive('ihshift', ($swipe)-> (scope, el, attr)->
