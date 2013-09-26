@@ -1,5 +1,5 @@
 angular.module( 'app', ['ngRoute', 'templates-app', 'templates-common',
-                           'Model', 'app.home',
+                           'Model', 'app.home', 'ui.bootstrap'
 ])
   .config( ($routeProvider) ->
     $routeProvider.when( '/',
@@ -26,12 +26,26 @@ angular.module( 'app', ['ngRoute', 'templates-app', 'templates-common',
     console.log 'app run'
   )
 
-  .controller('AppCtrl', ($scope, $location, Single) ->
+  .controller('AppCtrl', ($scope, $location, Single, $modal, $log) ->
 
     popupLogin = ->
-      $scope.loginPopupShow = true
-      $scope.path = $location.path()
+      #items = ['item1', 'item2', 'item3']
+      $modal.open(
+        templateUrl: "modal/login.tpl.html"
+        #controller: "ModalInstanceCtrl"
+        #resolve: items: -> items
+      )
+#      .result.then(
+#        (ret)->
+#          $log.info ret
+#        (ret)->
+#          $log.info(ret + ' Modal dismissed at: ' + new Date())
+#      )
       false
+
+#      $scope.loginPopupShow = true
+#      $scope.path = $location.path()
+
 
     $scope.meta = Single('meta').get()
     $scope.setTitle = (title)-> $scope.title = title or $scope.appTitle
@@ -46,6 +60,19 @@ angular.module( 'app', ['ngRoute', 'templates-app', 'templates-common',
         $location.path("/edit/0")
 
     $scope.goBack = ->  history.back()
+  )
+
+  .controller('ModalInstanceCtrl', ($scope, $modalInstance, items)->
+    $scope.items = items
+    $scope.selected = {
+      item: $scope.items[0]
+    }
+
+    $scope.ok = ->
+      $modalInstance.close($scope.selected.item)
+
+    $scope.cancel = ->
+      $modalInstance.dismiss('cancel...')
   )
 
 

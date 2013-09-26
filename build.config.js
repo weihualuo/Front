@@ -27,7 +27,7 @@ module.exports = {
     coffeeunit: [ 'src/**/*.spec.coffee' ],
 
     atpl: [ 'src/app/**/*.tpl.html' ],
-    ctpl: [ 'src/common/**/*.tpl.html' ],
+    ctpl: [ 'src/common/**/*.html' ],
 
     html: [ 'src/index.html' ],
     less: 'src/less/main.less'
@@ -50,19 +50,15 @@ module.exports = {
   vendor_files: {
     js: [
 
-//        'vendor/angular-mobile-nav/mobile-nav.min.js',
-//        'vendor/angular-jqm/components/angular/angular.js',
-//        'vendor/angular-jqm/components/angular/angular-mobile.js',
-//        'vendor/angular-jqm/dist/angular-jqm.js',
-//
         'vendor/angular-1.2.0-rc.2/angular.js',
         'vendor/angular-1.2.0-rc.2/angular-animate.js',
         'vendor/angular-1.2.0-rc.2/angular-route.js',
         'vendor/angular-1.2.0-rc.2/angular-touch.js',
-//        'vendor/angular-1.2.0-rc.2/',
 
         'vendor/lodash/lodash.js',
         'vendor/restangular/restangular.min.js',
+        'vendor/bootstrap-custom/ui-bootstrap-custom-0.6.0.min.js',
+
 //        'vendor/flat-UI/js/flatui-checkbox.js'
 //        'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
 //        'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',

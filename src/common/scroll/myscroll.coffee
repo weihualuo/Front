@@ -14,6 +14,14 @@ angular.module( 'myscroll', ['ngTouch'])
     el.css width:width+'px', height:height+'px', boxSizing:"border-box"
   )
 
+  .directive('iposMiddle', -> (scope, el, attr)->
+    parent = el[0].offsetParent or el[0].parentElement or document.children[0]
+    top = (parent.offsetHeight - el[0].offsetHeight)/2
+    left = (parent.offsetWidth - el[0].offsetWidth)/2
+    el.css top:top+'px', left:left+'px'
+    console.log "iposmiddle"
+  )
+
   .directive('ihshift', ($swipe)-> (scope, el, attr)->
 
     cards = el.children()
