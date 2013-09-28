@@ -1,14 +1,14 @@
 
 angular.module( 'myscroll', ['ngTouch'])
 
-  .directive('ifillBottom', -> (scope, el, attr)->
-    margin = Number(attr.imargin) or 0
+  .directive('ifillBottom', -> (scope, el, attr)-> el.ready ->
+    margin = Number(attr.ifillBottom) or 0
     height = el[0].offsetParent.offsetHeight - el[0].offsetTop - margin
     el.css height:height+'px'
   )
 
   .directive('ifillLeft', -> (scope, el, attr)->
-    margin = Number(attr.imargin) or 0
+    margin = Number(attr.ifillLeft) or 0
     height = el[0].nextElementSibling.offsetHeight
     width = el[0].nextElementSibling.offsetLeft - margin
     el.css width:width+'px', height:height+'px', boxSizing:"border-box"
@@ -19,20 +19,19 @@ angular.module( 'myscroll', ['ngTouch'])
     top = (parent.offsetHeight - el[0].offsetHeight)/2
     left = (parent.offsetWidth - el[0].offsetWidth)/2
     el.css top:top+'px', left:left+'px'
-    console.log "iposmiddle"
   )
 
   .directive('ihshift', ($swipe)-> (scope, el, attr)->
 
     cards = el.children()
-    style = position:"absolute", width:"100%", 'min-height':"100%"
-    margin = Number(attr.imargin) or 0
-    isel = attr.isel or "card"
+    margin = Number(attr.ihshiftMargin) or 0
+    isel = attr.ihshift or ""
     width = el[0].offsetWidth
     offset = 0
     startX = 0
     x = 0
-    el.css height:"100%"
+    el.css position:"relative"
+    style = position:"absolute", width:"100%", 'min-height':"100%"
     for card in cards
       card.style.left = offset+'px'
       angular.extend card.style, style
@@ -43,13 +42,24 @@ angular.module( 'myscroll', ['ngTouch'])
     setAnimate = (prop)->
       el.css "-webkit-transition": prop
 
+    onShiftEnd = ->
+      card = scope[isel]
+      scope[isel] = - Math.round x/width
+      if card isnt scope[isel] then scope.$apply()
+      else
+        x = width * Math.round x/width
+        setAnimate "all 0.3s ease-in"
+        updatePosition()
+
     $swipe.bind el,
       'start': (coords)->
         startX = coords.x - x
         setAnimate "none"
         console.log 'start'
 
-      'cancel': (coords)-> console.log 'cancel'
+      'cancel': ->
+        onShiftEnd()
+        console.log 'cancel'
 
       'move': (coords)->
         x = coords.x - startX
@@ -58,14 +68,8 @@ angular.module( 'myscroll', ['ngTouch'])
         updatePosition()
         console.log 'move', x
 
-      'end': (coords)->
-        card = scope[isel]
-        scope[isel] = - Math.round x/width
-        if card isnt scope[isel] then scope.$apply()
-        else
-          x = width * Math.round x/width
-          setAnimate "all 0.3s ease-in"
-          updatePosition()
+      'end': ->
+        onShiftEnd()
         console.log 'end'
 
     scope.$watch isel, (newValue, oldValue)->
