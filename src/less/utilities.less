@@ -34,7 +34,7 @@
   position: absolute;
 }
 
-.background{
+.default-back{
   background: @bodyBackground;
 }
 
@@ -78,7 +78,7 @@
   .preserve3d();
   .face{
     .fill;
-    background: #ffffff;
+    .default-back;
   }
 }
 
@@ -96,7 +96,7 @@
   .layer{
     .preserve3d();
     .fill;
-    background: #ffffff;
+    .default-back;
     &.layer-shrink{
       .shrink;
       &.present{
@@ -129,7 +129,8 @@
   width:100%;
   height: @height;
   line-height: @height;
-  #gradient > .nav-bar;
+  background: blueviolet;
+//  #gradient > .nav-bar;
   //  background: url(toolbar.png) #6d84a2 repeat-x;
   padding:0;
   color:#eee;
