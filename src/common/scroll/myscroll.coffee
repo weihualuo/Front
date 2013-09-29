@@ -99,6 +99,17 @@ angular.module( 'myscroll', ['ngTouch'])
       updatePosition()
   )
 
+  .directive('ivpull', ()->  (scope, el, attr)->
+    status = attr.ivpull
+    handler = attr.ihandler
+    el.parent().data 'ivpull', {el:el, status:status, handler: handler}
+  )
+  .directive('ivmore', ()->  (scope, el, attr)->
+    status = attr.ivmore
+    handler = attr.ihandler
+    el.parent().data 'ivmore', {el:el, status:status, handler: handler}
+  )
+
   .directive('ivscroll', ()->  (scope, el, attr)->
     y = 0
     moving = no
@@ -107,10 +118,29 @@ angular.module( 'myscroll', ['ngTouch'])
     margin = Number(attr.imargin) or 0
     startPull = 5
     THRESHOLD = 2
-    pull = attr.ipull
     reset = attr.ivreset
-    if pull
+
+    pullData = el.data 'ivpull'
+    moreData = el.data 'ivmore'
+
+    if pullData
+      pull = pullData.status
       offset = -el.children()[0].offsetHeight
+      refresh = scope[pullData.handler]
+      if !angular.isFunction(refresh)
+        refresh = angular.noop
+      el.data 'ivpull', null
+
+    if moreData
+      more = moreData.status
+      loadMore = scope[moreData.handler]
+      if !angular.isFunction(loadMore)
+        loadMore = angular.noop
+      moreData.el.on 'click', ->
+        if scope[more] isnt 2
+          scope[more] = 2
+          loadMore -> scope[more] = 0
+      el.data 'ivmore', null
 
     # function from angular touch
     `function getCoordinates(event) {
@@ -142,11 +172,15 @@ angular.module( 'myscroll', ['ngTouch'])
         console.log "iv reset"
 
 
-    scope.$watch pull, (newValue, oldValue)->
-      if newValue is 0 and oldValue is 2
+    scope.$watch pull, (newValue)->
+      if newValue is 2
+        refresh ->
+          scope[pull] = 0
+          scope[more] = 0 if scope[more]
+
+      else if newValue is 0
         y = offset
         updatePosition()
-        console.log "refesh finished"
 
     el.on 'touchstart mousedown', (e)->
       startY = getCoordinates(e).y - y

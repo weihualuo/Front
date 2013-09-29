@@ -50,7 +50,7 @@ module.exports = {
   vendor_files: {
     js: [
 
-        'vendor/angular-1.2.0-rc.2/angular.min.js',
+        'vendor/angular-1.2.0-rc.2/angular.js',
         'vendor/angular-1.2.0-rc.2/angular-animate.js',
         'vendor/angular-1.2.0-rc.2/angular-route.js',
         'vendor/angular-1.2.0-rc.2/angular-touch.js',

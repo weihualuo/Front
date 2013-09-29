@@ -9,14 +9,14 @@
                 <a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
             </div>
 
-            <div class="content" ivscroll imargin=20 ipull="pullStatus">
-                <div class="pull pullDown" ng-init="pullText=['下拉可以刷新...', '松开即可刷新...', '加载中...', '加载更多...']; pullStatus=2">
+            <div class="content mhs" ivscroll imargin=20 >
+                <div ivpull="pullStatus" ihandler="onRefresh" class="pull pullDown" ng-init="pullText=['下拉可以刷新...', '松开即可刷新...', '加载中...', '加载更多...']; pullStatus=2">
                     <span class="pullIcon pullDown" ng-class="{flip:pullStatus==1,loading:pullStatus==2}"></span>
                     <span>{{pullText[pullStatus]}}</span>
                 </div>
-                <div>
-                    <div class="clearfix pas" ng-repeat="e in objects" ng-click="onDetail(e)">
-                        <div class="pull-left pas">
+                <div class="pts">
+                    <div class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
+                        <div class="pull-left prm">
                             <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
                         </div>
                         <div class="pull-left">
@@ -30,9 +30,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="pull pullUp" ng-class="{hide:moreStatus==0}" ng-click="onMore()" ng-init="moreStatus=0">
+                <div ivmore="moreStatus" ihandler="onMore" class="pull pullUp" ng-class="{hide:moreStatus==1}" ng-init="moreText=['加载更多...', '', '加载中...'];moreStatus=1">
                     <span class="pullIcon pullUp" ng-class="{loading:moreStatus==2}"></span>
-                    <span ng-bind="pullText[moreStatus]"></span>
+                    <span ng-bind="moreText[moreStatus]"></span>
                 </div>
             </div>
 

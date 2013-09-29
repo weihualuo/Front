@@ -10,16 +10,11 @@ angular.module('app.home', ['myscroll', 'mywidget', 'app.detail'])
       console.log 'watch meta'
       $scope.setTitle $scope.meta.user and $scope.meta.user.name
 
-    $scope.$watch 'pullStatus', ->
-      if $scope.pullStatus is 2
-        $scope.objects = model.load -1, ->
-          $scope.pullStatus=0
-          $scope.moreStatus=3
-        console.log 'pull refresh'
+    $scope.onRefresh = (cb)->
+      $scope.objects = model.load -1, cb
 
-    $scope.onMore = ->
-      $scope.moreStatus=2
-      model.load 1, -> $scope.moreStatus=3
+    $scope.onMore = (cb)->
+      model.load 1, cb
 
     $scope.onDetail = (e)->
       $scope.e = e
@@ -27,7 +22,6 @@ angular.module('app.home', ['myscroll', 'mywidget', 'app.detail'])
 
     $scope.onBack = (from)->
       $scope.layer = 1
-
 
     $scope.$watchCollection 'objects', ->  console.log 'watch objs'
     $scope.$on '$destroy', -> console.log 'scope destroy'
