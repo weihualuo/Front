@@ -1,19 +1,14 @@
 
 angular.module( 'mywidget', [])
 
-.directive('ihtabs', ->
-  scope: true
-  link:  (scope, el, attr)->
+  .directive('ihtabs', ->  (scope, el, attr)->
 
     x = 0
     isel = attr.ihtabs
-    divs = el.children()
-    navs = angular.element(divs[0])
-    bar = angular.element(divs[1])
     viewWidth = el[0].offsetWidth
-    minPadding = Number(navs.attr "ihtabs-padding") or 0
+    minPadding = Number(el.attr "ihtabs-padding") or 0
 
-    tabs = navs.children()
+    tabs = el.children()
     totalOffset = 1
     totalOffset += tab.offsetWidth for tab in tabs
     margin = viewWidth - totalOffset
@@ -24,13 +19,13 @@ angular.module( 'mywidget', [])
     style = float:"left", paddingLeft:padding+'px', paddingRight: padding+'px'
     angular.extend tab.style, style for tab in tabs
 
-    navs.css width: "#{navsWidth}px"
-    navs.append("<div style='clear: both;'></div>")
+    el.css width: "#{navsWidth}px"
+    el.append("<div style='clear: both;'></div>")
 
     updatePosition = ->
-      navs.css "-webkit-transform": "translate3d(#{x}px, 0, 0)"
+      el.css "-webkit-transform": "translate3d(#{x}px, 0, 0)"
     setAnimate = (prop)->
-      navs.css "-webkit-transition": prop
+      el.css "-webkit-transition": prop
 
     M = (n)->
       m = tabs[n].offsetWidth/2
@@ -46,4 +41,5 @@ angular.module( 'mywidget', [])
         setAnimate "all 0.5s ease-in"
       updatePosition()
       console.log n, viewWidth, navsWidth, M(n), x
-)
+
+  )

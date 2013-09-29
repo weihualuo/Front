@@ -1,10 +1,30 @@
 
 angular.module( 'myscroll', ['ngTouch'])
 
-  .directive('ifillBottom', -> (scope, el, attr)-> el.ready ->
-    margin = Number(attr.ifillBottom) or 0
-    height = el[0].offsetParent.offsetHeight - el[0].offsetTop - margin
-    el.css height:height+'px'
+  .directive('ifillBottom', -> (scope, el, attr)->
+
+    dataid = 'ifillbottom'
+    type = attr.ifillBottom
+    margin = Number(attr.ifillMargin) or 0
+
+    if type is "nested"
+      data = el.data(dataid) or []
+      data.push([el,margin])
+      angular.element(el[0].offsetParent).data(dataid, data)
+      el.data dataid, null
+      return
+
+    fill = (el, m) ->
+      height = el[0].offsetParent.offsetHeight - el[0].offsetTop - m
+      el.css height:height+'px'
+      console.log "set Height ", height
+
+    fill el, margin
+
+    if type is 'recursive'
+      data = el.data(dataid) or []
+      fill(pair[0], pair[1]) while (pair = data.pop())
+      el.data dataid, null
   )
 
   .directive('ifillLeft', -> (scope, el, attr)->
