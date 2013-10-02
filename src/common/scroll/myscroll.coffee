@@ -1,6 +1,7 @@
 
 angular.module( 'myscroll', ['ngTouch'])
 
+#TODO should use controller to share data
   .directive('ifillBottom', -> (scope, el, attr)->
 
     dataid = 'ifillbottom'

@@ -7,14 +7,12 @@ angular.module('app.edit', [])
   .controller( 'EditCtrl', ($scope, Many, $routeParams, noRepeat, $timeout) ->
 
     model = Many('events')
-    $scope.$watch 'e', ->
-    if $scope.e
-      e = model.get $scope.e.id
+#    $scope.$watch 'e', ->
+#    if $scope.e
+#      e = model.get $scope.e.id
 #
-#    id = Number $routeParams.id
-#    $scope.e = e = if id then model.get id else {}
-#    console.log e
-
+    id = Number $routeParams.id
+    $scope.e = e = if id then model.get id else {}
   )
 
   .controller( 'formCtrl', ($scope, Many, $location, noRepeat) ->

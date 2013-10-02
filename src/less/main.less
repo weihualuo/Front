@@ -36,9 +36,9 @@ html, body, .viewport{
 
 .header{
   .fixbar;
-  .option{
-    .phm;
-  }
+}
+.option{
+  .phm;
 }
 
 .content{
@@ -64,40 +64,59 @@ html, body, .viewport{
   &.pullUp{
     border-top:1px solid #ccc;
   }
-  .pullIcon{
-    display:block; float:left;
-    width:40px; height:40px;
-    background:url(pull-icon@2x.png) 0 0 no-repeat;
-    -webkit-background-size:40px 80px; background-size:40px 80px;
-    -webkit-transition-property:-webkit-transform;
-    -webkit-transition-duration:250ms;
-    &.pullDown{
-      &.flip{
-        -webkit-transform:rotate(-180deg)
-      }
-    }
-    &.pullUp{
-      display:none;
-    }
-    &.loading{
-      display:block;
-      background-position:0 100%;
-      -webkit-transform:rotate(0deg);
-      -webkit-transition-duration:0ms;
-      .animation(loading 2s linear 0 infinite);
+}
+.pullIcon{
+  display:block; float:left;
+  width:40px; height:40px;
+  background:url(pull-icon@2x.png) 0 0 no-repeat;
+  -webkit-background-size:40px 80px; background-size:40px 80px;
+  -webkit-transition-property:-webkit-transform;
+  -webkit-transition-duration:250ms;
+  &.pullDown{
+    &.flip{
+      -webkit-transform:rotate(-180deg)
     }
   }
+  &.pullUp{
+    display:none;
+  }
+  &.loading{
+    display:block;
+    background-position:0 100%;
+    -webkit-transform:rotate(0deg);
+    -webkit-transition-duration:0ms;
+    .animation(loading 2s linear 0 infinite);
+  }
 }
+
 .tabs-bar{
   background: burlywood;
 }
 .tabs-navs{
   background: gainsboro;
 //  border-bottom: 4px burlywood solid;
-  span{
+  >span{
     .pvs;
     &.active{
       background: greenyellow;
+    }
+  }
+}
+
+.viewport {
+  .ng-enter{
+    .transition(all 1s ease-in-out);
+    .transform(translate3d(100%, 0, 0));
+    &.ng-enter-active{
+      opacity: 1;
+      .transform(translate3d(0, 0, 0));
+    }
+  }
+  .ng-leave{
+    .transition(all 1s ease-in-out);
+    opacity: 1;
+    &.ng-leave-active{
+      opacity: 0;
     }
   }
 }

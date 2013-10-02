@@ -1,21 +1,13 @@
 angular.module('app.detail', ['Service', 'app.edit'])
 
-  .config( () ->
-  )
-
   .controller( 'DetailCtrl', ($scope, Many, $routeParams, noRepeat, $location) ->
-
-    e = null
     console.log 'DetailCtrl'
+    e = null
     model = Many('events')
-#    $scope.e = e = model.get Number $routeParams.id
+    $scope.e = e = model.get Number $routeParams.id
 
-    $scope.$watch 'e', ->
-      if $scope.e
-        e = model.get $scope.e.id
-
-
-#    $scope.$watch 'e.title', -> $scope.setTitle e.title
+#    $scope.$watch 'e.id', (id)->
+#        e = model.get $scope.e.id
 
     $scope.$watch 'e.starter', ->
       if $scope.meta.user and e.starter
@@ -39,8 +31,7 @@ angular.module('app.detail', ['Service', 'app.edit'])
       no
     $scope.onUpload = ->
       no
-    $scope.onEdit = ->  $scope.turnBack()
-    $scope.turnBack = -> $scope.back = !$scope.back
+    $scope.onEdit = ->  $location.path("/edit/" + e.id)
 
   )
   .controller( 'CommentCtrl', ($scope, $timeout, noRepeat) ->

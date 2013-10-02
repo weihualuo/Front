@@ -1,46 +1,34 @@
 
-<div class="layer-container" ng-init='status = [ "已取消　", "未知状态", "即将开始", "正在进行", "已经结束"]'>
-    <div class="layers" ng-init="layer=1" >
-        <div id="layerhome" class="layer">
+<div class="header">
+    <a class="option pull-left" ng-click="onEdit()"><i class="icon-edit icon-large"></i></a>
+    <span ng-init="title='集结号'">{{title}}</span>
+    <a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
+</div>
 
-            <div class="header">
-                <a class="option pull-left"><i class="icon-edit icon-large"></i></a>
-                <span>集结号</span>
-                <a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
+<div class="content mhs" ivscroll imargin=20 >
+    <div ivpull="pullStatus" ihandler="onRefresh" class="pull pullDown">
+        <span class="pullIcon pullDown" ng-class="{flip:pullStatus==1,loading:pullStatus==2}"></span>
+        <span ng-init="pullText=['下拉可以刷新...', '松开即可刷新...', '加载中...', '加载更多...'];pullStatus=2">{{pullText[pullStatus]}}</span>
+    </div>
+    <div class="pts">
+        <div class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
+            <div class="pull-left prm">
+                <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
             </div>
-
-            <div class="content mhs" ivscroll imargin=20 >
-                <div ivpull="pullStatus" ihandler="onRefresh" class="pull pullDown" ng-init="pullText=['下拉可以刷新...', '松开即可刷新...', '加载中...', '加载更多...']; pullStatus=2">
-                    <span class="pullIcon pullDown" ng-class="{flip:pullStatus==1,loading:pullStatus==2}"></span>
-                    <span>{{pullText[pullStatus]}}</span>
-                </div>
-                <div class="pts">
-                    <div class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
-                        <div class="pull-left prm">
-                            <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
-                        </div>
-                        <div class="pull-left">
-                            <span><strong>{{e.title}}</strong></span><br>
-                            <span>类别：{{e.ca}}</span><br>
-                            <span>时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
-                            <span>地点：{{e.avenue}}</span>
-                        </div>
-                        <div class="pull-right">
-                            <span>{{status[e.status+1]}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div ivmore="moreStatus" ihandler="onMore" class="pull pullUp" ng-class="{hide:moreStatus==1}" ng-init="moreText=['加载更多...', '', '加载中...'];moreStatus=1">
-                    <span class="pullIcon pullUp" ng-class="{loading:moreStatus==2}"></span>
-                    <span ng-bind="moreText[moreStatus]"></span>
-                </div>
+            <div class="pull-left">
+                <span><strong>{{e.title}}</strong></span><br>
+                <span>类别：{{e.ca}}</span><br>
+                <span>时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
+                <span>地点：{{e.avenue}}</span>
             </div>
-
+            <div class="pull-right">
+                <span>{{status[e.status+1]}}</span>
+            </div>
         </div>
-        <div id="layer2" class="layer layer-shrink" ng-class="{present: layer>=2}">
-            <div class="fill" ng-include="'detail/detail.tpl.html'"></div>
-        </div>
-        <div id="layer3" class="layer layer-right" ng-class="{present: layer>=3}"> layer3 </div>
-        <div id="layer4" class="layer layer-shrink" ng-class="{present: layer>=4}"> layer4 </div>
+    </div>
+    <div ivmore="moreStatus" ihandler="onMore" class="pull pullUp" ng-class="{hide:moreStatus==1}">
+        <span class="pullIcon pullUp" ng-class="{loading:moreStatus==2}"></span>
+        <span ng-bind="moreText[moreStatus]" ng-init="moreText=['加载更多...', '', '加载中...'];moreStatus=1"></span>
     </div>
 </div>
+

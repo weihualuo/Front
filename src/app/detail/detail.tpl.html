@@ -1,161 +1,91 @@
 
-<div class="face-container" ng-controller="DetailCtrl">
-    <div class="faces" ng-class="{turnfront:back===false,turnback:back}"  ng-init="back=0">
-        <div class="face" ng-class="{back:back}">
+<div class="header">
+    <a class="option pull-left" ng-click="goBack()"><i class="icon-chevron-left icon-large"></i></a>
+    <span>{{e.title}}</span>
+    <a class="option pull-right" ng-click="onEdit()"><i class="icon-edit icon-large"></i></a>
+</div>
 
-            <div class="header">
-                <a class="option pull-left" ng-click="onBack(2)"><i class="icon-chevron-left icon-large"></i></a>
-                <span>{{e.title}}</span>
-                <a class="option pull-right" ng-click="back=true"><i class="icon-edit icon-large"></i></a>
+<div class="content mhs">
+    <div class="mts clearfix">
+        <div class="pull-left prm">
+            <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
+        </div>
+        <div class="">
+            <span>活动类型：{{e.ca}}</span><br>
+            <span>活动状态：{{status[e.status+1]}}</span><br>
+            <span>开始时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
+            <span>结束时间：{{e.end_time| date:'MM月dd日 HH:mm'}}</span><br>
+            <span>活动地点：{{e.avenue}}</span><br>
+            <span>发起人　：{{e.starter.name}}</span>
+        </div>
+    </div>
+
+    <div class="mvl">
+        <a class="btn btn-primary" ng-click="onEdit()" ng-show="IamOwner">修改活动</a>
+        <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']" ng-hide="IamOwner">
+            {{text[IamIn]}}</a>
+        <a class="btn btn-info" ng-click="onShare()">分享活动</a>
+        <a class="btn btn-inverse" ng-click="onUpload()">上传照片</a>
+    </div>
+
+    <div class="container" ifill-bottom="recursive" ifill-margin=5 ng-init="select=0">
+        <div  ihtabs="select" ihtabs-padding=20 class="tabs-navs" style="background: beige">
+            <span ng-click="select=0" ng-class="{active: select==0}">活动简介</span>
+            <span ng-click="select=1" ng-class="{active: select==1}">活动讨论</span>
+            <span ng-click="select=2"  ng-class="{active: select==2}">活动照片</span>
+        </div>
+
+        <div ihtabs-bar="blue" class="tabs-bar" style="height: 5px"></div>
+
+        <div ihshift="select" ihshift-margin=40 ifill-bottom="nested" style="z-index: -1;">
+            <div style="background: blanchedalmond" ivscroll ivreset="e">
+                <p style="white-space:pre-wrap">{{e.description}}</p>
+                <hr>
+                <p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>
+                <a ng-repeat="u in e.attendees">
+                    <img style="vertical-align: middle" ng-src={{u.profile_image_url}} />
+                    <span>{{u.name}}</span>
+                </a>
             </div>
-
-            <div class="content mhs">
-                <div class="mts clearfix">
-                    <div class="pull-left prm">
-                        <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
-                    </div>
-                    <div class="">
-                        <span>活动类型：{{e.ca}}</span><br>
-                        <span>活动状态：{{status[e.status+1]}}</span><br>
-                        <span>开始时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
-                        <span>结束时间：{{e.end_time| date:'MM月dd日 HH:mm'}}</span><br>
-                        <span>活动地点：{{e.avenue}}</span><br>
-                        <span>发起人　：{{e.starter.name}}</span>
+            <div style="background: cadetblue" ng-controller='CommentCtrl' ivscroll ivreset="e">
+                <div>
+                    <input class="pull-left" ng-model="comment" type="text" ifill-left=4>
+                    <a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>
+                    <div style="clear: both">
+                        <input type="checkbox" ng-model="wbChecked" style="width: auto">
+                        <span>同时发布到新浪微博</span>
                     </div>
                 </div>
 
-                <div class="mvl">
-                    <a class="btn btn-primary" ng-click="onEdit()" ng-show="IamOwner">修改活动</a>
-                    <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']" ng-hide="IamOwner">
-                        {{text[IamIn]}}</a>
-                    <a class="btn btn-info" ng-click="onShare()">分享活动</a>
-                    <a class="btn btn-inverse" ng-click="onUpload()">上传照片</a>
-                </div>
-
-                <div class="container" ifill-bottom="recursive" ifill-margin=5 ng-init="select=0">
-                    <div  ihtabs="select" ihtabs-padding=20 class="tabs-navs" style="background: beige">
-                        <span ng-click="select=0" ng-class="{active: select==0}">活动简介</span>
-                        <span ng-click="select=1" ng-class="{active: select==1}">活动讨论</span>
-                        <span ng-click="select=2"  ng-class="{active: select==2}">活动照片</span>
-                    </div>
-
-                    <div ihtabs-bar="blue" class="tabs-bar" style="height: 5px"></div>
-
-                    <div ihshift="select" ihshift-margin=40 ifill-bottom="nested" style="z-index: -1;">
-                        <div style="background: blanchedalmond" ivscroll ivreset="e">
-                            <p style="white-space:pre-wrap">{{e.description}}</p>
-                            <hr>
-                            <p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>
-                            <a ng-repeat="u in e.attendees">
-                                <img style="vertical-align: middle" ng-src={{u.profile_image_url}} />
-                                <span>{{u.name}}</span>
-                            </a>
+                <div ng-repeat="c in e.comment_set">
+                    <div class="pvm clearfix">
+                        <div class="pull-left prm">
+                            <img  ng-src={{c.author.profile_image_url}} />
                         </div>
-                        <div style="background: cadetblue" ng-controller='CommentCtrl' ivscroll ivreset="e">
-                            <div>
-                                <input class="pull-left" ng-model="comment" type="text" ifill-left=4>
-                                <a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>
-                                <div style="clear: both">
-                                    <input type="checkbox" ng-model="wbChecked" style="width: auto">
-                                    <span>同时发布到新浪微博</span>
-                                </div>
-                            </div>
-
-                            <div ng-repeat="c in e.comment_set">
-                                <div class="pvm clearfix">
-                                    <div class="pull-left prm">
-                                        <img  ng-src={{c.author.profile_image_url}} />
-                                    </div>
-                                    <div >
-                                        <p class="pbm">
-                                            <span>{{c.author.name}} : </span>
-                                            <span>{{c.body}}</span>
-                                        </p>
-                                        <p class="mrl prl">
-                                            <span><small>{{c.created | date:'MM月dd日 HH:mm'}}</small></span>
+                        <div >
+                            <p class="pbm">
+                                <span>{{c.author.name}} : </span>
+                                <span>{{c.body}}</span>
+                            </p>
+                            <p class="mrl prl">
+                                <span><small>{{c.created | date:'MM月dd日 HH:mm'}}</small></span>
                                                 <span class="pull-right" ng-show="meta.user.id===c.author.id">
                                                     <a ng-click="onCommentDel(c.id)"><i class="icon-trash"></i></a>
                                                  </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
+                            </p>
                         </div>
-                        <div style="background: darkgray" ivscroll ivreset="e">
-                            <a ng-repeat="img in e.album">
-                                <img ng-src="{{meta.imgbase}}{{img.thumbnail2}}">
-                            </a>
-                        </div>
-
                     </div>
+                    <hr>
                 </div>
-
-                <!--<div class="mvl" ng-init="select=1">-->
-                    <!--<div class="clearfix" ihtabs isel="select" ipos="offset">-->
-                        <!--<span ng-click="select=0" ng-class="{active: select==0}" CLASS="pull-left">活动简介</span>-->
-                        <!--<span ng-click="select=1" ng-class="{active: select==1}" CLASS="pull-left">活动讨论</span>-->
-                        <!--<span ng-click="select=2"  ng-class="{active: select==2}" CLASS="pull-left">活动照片</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="mtl">-->
-                    <!--<div class="container" ifill-bottom imargin=4>-->
-                        <!--<div ihshift isel="select" imargin=30>-->
-                            <!--<div style="background: blanchedalmond" ivscroll ivreset="e">-->
-                                <!--<p style="white-space:pre-wrap">{{e.description}}</p>-->
-                                <!--<hr>-->
-                                <!--<p>参与名单<span><small>({{e.attendees.length}}):</small></span></p>-->
-                                <!--<a ng-repeat="u in e.attendees">-->
-                                    <!--<img style="vertical-align: middle" ng-src={{u.profile_image_url}} />-->
-                                    <!--<span>{{u.name}}</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div style="background: cadetblue" ng-controller='CommentCtrl' ivscroll ivreset="e">-->
-                                <!--<div>-->
-                                    <!--<input class="pull-left" ng-model="comment" type="text" ifill-left imargin=4>-->
-                                    <!--<a class="btn btn-primary pull-right " ng-click="onComment()">发布</a>-->
-                                    <!--<div style="clear: both">-->
-                                        <!--<input type="checkbox" ng-model="wbChecked" style="width: auto">-->
-                                        <!--<span>同时发布到新浪微博</span>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-
-                                <!--<div ng-repeat="c in e.comment_set">-->
-                                    <!--<div class="pvm clearfix">-->
-                                        <!--<div class="pull-left prm">-->
-                                            <!--<img  ng-src={{c.author.profile_image_url}} />-->
-                                        <!--</div>-->
-                                        <!--<div >-->
-                                            <!--<p class="pbm">-->
-                                                <!--<span>{{c.author.name}} : </span>-->
-                                                <!--<span>{{c.body}}</span>-->
-                                            <!--</p>-->
-                                            <!--<p class="mrl prl">-->
-                                                <!--<span><small>{{c.created | date:'MM月dd日 HH:mm'}}</small></span>-->
-                                                <!--<span class="pull-right" ng-show="meta.user.id===c.author.id">-->
-                                                    <!--<a ng-click="onCommentDel(c.id)"><i class="icon-trash"></i></a>-->
-                                                 <!--</span>-->
-                                            <!--</p>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<hr>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div style="background: darkgray" ivscroll ivreset="e">-->
-                                <!--<a ng-repeat="img in e.album">-->
-                                    <!--<img ng-src="{{meta.imgbase}}{{img.thumbnail2}}">-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
             </div>
-    </div>
-        <div class="face" ng-class="{back:!back}">
-            <div ng-include="'edit/edit.tpl.html'" ng-controller="EditCtrl"></div>
+            <div style="background: darkgray" ivscroll ivreset="e">
+                <a ng-repeat="img in e.album">
+                    <img ng-src="{{meta.imgbase}}{{img.thumbnail2}}">
+                </a>
+            </div>
+
         </div>
     </div>
 </div>
+
 

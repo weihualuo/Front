@@ -9,12 +9,10 @@ angular.module( 'app', ['ngRoute', 'templates-app', 'templates-common',
     .when( '/detail/:id'
       controller: 'DetailCtrl'
       templateUrl: 'detail/detail.tpl.html'
-      animation: 'page-slide'
     )
     .when( '/edit/:id'
       controller: 'EditCtrl'
       templateUrl: 'edit/edit.tpl.html'
-      animation: 'page-slide'
     )
     .otherwise(
       redirectTo: '/'
@@ -22,9 +20,6 @@ angular.module( 'app', ['ngRoute', 'templates-app', 'templates-common',
 
   )
 
-  .run( ()->
-    console.log 'app run'
-  )
 
   .controller('AppCtrl', ($scope, $location, Single, $modal, $log) ->
 
