@@ -23,27 +23,96 @@
 @import "transition";
 @import "modals";
 
-*{
+html, body, .viewport{
+  .user-select(none);
   .backface-visibility(hidden);
   margin: 0;
   padding: 0;
-}
-html, body, .viewport{
-  .user-select(none);
   position: relative;
   height:100%;
+  overflow: hidden;
+}
+
+a{
+  color:#f3f3f3;
+  text-decoration:none;
+  font-weight:bold;
+  text-shadow:0 -1px 0 rgba(0,0,0,0.5);
 }
 
 .header{
-  .fixbar;
-}
-.option{
-  .phm;
+  .fixbar();
+  color:#eee;
 }
 
+.container{
+  position: absolute;
+  width: 100%;
+  top:@headerHeight;
+  bottom: @footerHeight;
+  left: 0;
+}
 .content{
+  position: absolute;
+  width: 100%;
+}
+
+.item-list{
+  .mhm;
+  .pvs;
+  position: relative;
+  height:110px;
+  border-bottom:1px solid #ccc;
+  //  border-top:1px solid #ccc;
+  background-color:#fafafa;
+  overflow: hidden;
+}
+
+@thumbnail-height: 105px;
+@thumbnail-width: 140px;
+@meta-width: 50px;
+
+.item-thumbnail{
+  position: absolute;
+  left: 0; top: 0;
+  width: @thumbnail-width;
+  height: @thumbnail-height;
+  overflow: hidden;
+}
+.item-info{
+  position: absolute;
+  left: @thumbnail-width; top: 0;
+  right: @meta-width;
+  height: @thumbnail-height;
+  overflow: hidden;
 
 }
+.item-meta{
+  position: absolute;
+  right: 0; top: 0;
+  width: @meta-width;
+  height: @thumbnail-height;
+  overflow: hidden;
+}
+
+ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+  width:100%;
+  text-align:left;
+}
+
+li {
+  .phm;
+  .pvs;
+  height:110px;
+  border-bottom:1px solid #ccc;
+//  border-top:1px solid #ccc;
+  background-color:#fafafa;
+  font-size:14px;
+}
+
 
 @-webkit-keyframes loading {
   from { -webkit-transform:rotate(0deg) translateZ(0); }
@@ -62,7 +131,7 @@ html, body, .viewport{
     border-bottom:1px solid #ccc;
   }
   &.pullUp{
-    border-top:1px solid #ccc;
+//    border-top:1px solid #ccc;
   }
 }
 .pullIcon{
@@ -103,20 +172,20 @@ html, body, .viewport{
   }
 }
 
-.viewport {
-  .ng-enter{
-    .transition(all 1s ease-in-out);
-    .transform(translate3d(100%, 0, 0));
-    &.ng-enter-active{
-      opacity: 1;
-      .transform(translate3d(0, 0, 0));
-    }
-  }
-  .ng-leave{
-    .transition(all 1s ease-in-out);
-    opacity: 1;
-    &.ng-leave-active{
-      opacity: 0;
-    }
-  }
-}
+//.viewport {
+//  .ng-enter{
+//    .transition(all 1s ease-in-out);
+//    .transform(translate3d(100%, 0, 0));
+//    &.ng-enter-active{
+//      opacity: 1;
+//      .transform(translate3d(0, 0, 0));
+//    }
+//  }
+//  .ng-leave{
+//    .transition(all 1s ease-in-out);
+//    opacity: 1;
+//    &.ng-leave-active{
+//      opacity: 0;
+//    }
+//  }
+//}

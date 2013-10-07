@@ -1,4 +1,4 @@
-angular.module('app.home', ['myscroll', 'mywidget', 'app.detail'])
+angular.module('app.home', ['myscroll', 'mywidget', 'app.detail', 'ngIscroll'])
 
   .config( () ->
   )

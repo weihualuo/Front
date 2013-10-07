@@ -1,34 +1,36 @@
 
 <div class="header">
-    <a class="option pull-left" ng-click="onEdit()"><i class="icon-edit icon-large"></i></a>
+    <a class="option pull-left plm" ng-click="onEdit()"><i class="icon-edit icon-large"></i></a>
     <span ng-init="title='集结号'">{{title}}</span>
-    <a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
+    <a class="option pull-right prm" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
 </div>
 
-<div class="content mhs" ivscroll imargin=20 >
-    <div ivpull="pullStatus" ihandler="onRefresh" class="pull pullDown">
-        <span class="pullIcon pullDown" ng-class="{flip:pullStatus==1,loading:pullStatus==2}"></span>
-        <span ng-init="pullText=['下拉可以刷新...', '松开即可刷新...', '加载中...', '加载更多...'];pullStatus=2">{{pullText[pullStatus]}}</span>
-    </div>
-    <div class="pts">
-        <div class="clearfix" ng-repeat="e in objects" ng-click="onDetail(e)">
-            <div class="pull-left prm">
-                <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
-            </div>
-            <div class="pull-left">
-                <span><strong>{{e.title}}</strong></span><br>
-                <span>类别：{{e.ca}}</span><br>
-                <span>时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
-                <span>地点：{{e.avenue}}</span>
-            </div>
-            <div class="pull-right">
-                <span>{{status[e.status+1]}}</span>
+<div class="container" ng-iscroll>
+    <div class="content">
+        <div ng-iscroll-pull="{statusID: 'pullStatus', onLoad: onRefresh}" class="pull pullDown">
+            <span class="pullIcon pullDown" ng-class="{flip:pullStatus=='flip',loading:pullStatus=='loading'}"></span>
+            <span ng-init="pullStatus='loading'; pullText={idle:'下拉可以刷新...', flip:'松开即可刷新...', loading:'加载中...'}">{{pullText[pullStatus]}}</span>
+        </div>
+        <div>
+            <div class="item-list" ng-repeat="e in objects">
+                <div class="item-thumbnail">
+                    <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
+                </div>
+                <div class="item-info">
+                    <span><strong>{{e.title}}</strong></span><br>
+                    <span>类别：{{e.ca}}</span><br>
+                    <span>时间：{{e.start_time| date:'MM月dd日 HH:mm'}}</span><br>
+                    <span>地点：{{e.avenue}}</span>
+                </div>
+                <div class="item-meta">
+                    <span>{{status[e.status+1]}}</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div ivmore="moreStatus" ihandler="onMore" class="pull pullUp" ng-class="{hide:moreStatus==1}">
-        <span class="pullIcon pullUp" ng-class="{loading:moreStatus==2}"></span>
-        <span ng-bind="moreText[moreStatus]" ng-init="moreText=['加载更多...', '', '加载中...'];moreStatus=1"></span>
+        <div ng-iscroll-more="{statusID: 'moreStatus', onLoad: onMore}" class="pull pullUp">
+            <span class="pullIcon pullUp" ng-class="{loading:moreStatus=='loading'}"></span>
+            <span ng-bind="moreText[moreStatus]" ng-init="moreText={idle:'加载更多...',loading:'加载中...'};moreStatus='init'"></span>
+        </div>
     </div>
 </div>
 
