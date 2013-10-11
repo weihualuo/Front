@@ -2,7 +2,7 @@
 <div class="header">
     <a class="option pull-left plm" ng-click="onEdit()"><i class="icon-edit icon-large"></i></a>
     <span ng-init="title='集结号'">{{title}}</span>
-    <a class="option pull-right prm" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
+    <a class="option pull-right prm" ng-click="onOption('REFRESH')"><i class="icon-refresh icon-large"></i></a>
 </div>
 
 <div class="container" ng-iscroll>
@@ -11,8 +11,8 @@
             <span class="pullIcon pullDown" ng-class="{flip:pullStatus=='flip',loading:pullStatus=='loading'}"></span>
             <span ng-init="pullStatus='loading'; pullText={idle:'下拉可以刷新...', flip:'松开即可刷新...', loading:'加载中...'}">{{pullText[pullStatus]}}</span>
         </div>
-        <div>
-            <div class="item-list" ng-repeat="e in objects">
+        <div class="mhs">
+            <div class="item-list" ng-repeat="e in objects" ng-click="onDetail(e)">
                 <div class="item-thumbnail">
                     <img ng-src="{{meta.imgbase}}{{e.image.thumbnail2}}"/>
                 </div>

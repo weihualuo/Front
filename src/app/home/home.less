@@ -1,49 +1,33 @@
 
-.app-info{
-  span{
-    display: block;
-    line-height: 150%;
-  }
+
+
+.item-list{
+  position: relative;
+  height:110px;
+  border-bottom:1px solid #ccc;
+  //  border-top:1px solid #ccc;
+  background-color:#fafafa;
+  overflow: hidden;
 }
 
-#home{
-//  padding-bottom: 60px;
-  ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-    width:100%;
-    text-align:left;
-    li{
-      border-bottom:1px solid #ccc;
-      border-top:1px solid #fff;
-      background-color:#fafafa;
-      font-size:14px;
-
-//      div{
-//        padding: 10px 5px;
-//      }
-//      .list-thumb{
-//        float: left;
-//        //  width: 10% !important;
-//        //  width:expression(this.width > 600 ? "600px" : this.width)!important;
-//        //  max-width: 100px;
-//        //  overflow: hidden;
-//      }
-//
-//      .list-info{
-//        float: left;
-//        span{
-//          display: block;
-//          line-height: 150%;
-//        }
-//      }
-//
-//      .list-meta{
-//        float: right;
-//      }
-    }
-  }
-
+.item-thumbnail{
+  position: absolute;
+  left: 0; top: @list-item-top-margin;
+  width: @thumbnail-width;
+  height: @thumbnail-height;
+  overflow: hidden;
 }
-
+.item-info{
+  position: absolute;
+  left: @thumbnail-width; top: @list-item-top-margin;
+  right: @list-meta-width;
+  height: @thumbnail-height;
+  overflow: hidden;
+}
+.item-meta{
+  position: absolute;
+  right: 0; top: @list-item-top-margin;
+  width: @list-meta-width;
+  height: @thumbnail-height;
+  overflow: hidden;
+}

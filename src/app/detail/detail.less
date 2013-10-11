@@ -1,16 +1,44 @@
 
 
 
+.itemdetail-thumb{
+  .mhs;
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  height: @thumbnail-height;
+  overflow: hidden;
+}
 
-//.app-user-list{
-//  img{
-//    vertical-align: middle;
-//  }
-//}
-//
-//.app-desc{
-//  white-space:pre-wrap;
-//}
-#detail{
+.itemdetail-info{
+  position: absolute;
+  left: @thumbnail-width; top: @list-item-top-margin;
+  right: 0;
+  height: @thumbnail-height;
+  overflow: hidden;
+}
+
+.itemdetail-option{
+  .mhs;
+  position: absolute;
+  left: 0;
+  top:@thumbnail-height+@list-item-top-margin*2;
+  right: 0;
+  height: @itemdetail-option-height;
+  overflow: hidden;
+  >a{
+    display: inline-block;
+    padding: 8px 10px;
+    line-height: 20px;
+  }
+}
+
+.itemdetail-misc{
+  .mhs;
+  position: absolute;
+  left: 0;
+  top:@thumbnail-height+@list-item-top-margin*2+@itemdetail-option-height;
+  right: 0;
+//  height: @thumbnail-height;
+  overflow: hidden;
 
 }
