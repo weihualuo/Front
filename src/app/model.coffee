@@ -52,10 +52,10 @@ angular.module( 'Model', ['restangular'])
           @cur = _.find(@objects, id:Number id) or Restangular.one(name, id)
         if !@cur.$d or force
           @cur.$d = true
-          @cur.get().then (d)=>  $timeout (->
+          @cur.get().then (d)=>  #$timeout (->
             _.extend @cur, d
             if cb then cb d
-            ),1000
+            #),1000
         @cur
 
       this

@@ -1,56 +1,57 @@
 
 
 <div class="header">
-    <a class="option pull-left"><i class="icon-edit icon-large"></i></a>
-    <span ng-init="title='修改活动'">{{title}}</span>
-    <a class="option pull-right" ng-click="onRefresh()"><i class="icon-refresh icon-large"></i></a>
+    <a class="option pull-left plm" ng-click="goBack()"><i class="icon-chevron-left icon-large"></i></a>
+    <span ng-init="titles=['发起活动','修改活动']">{{titles[isNew]}}</span>
 </div>
 
-<form name="event" id="form_event" class="pvl" ng-controller='formCtrl' ng-init="required_text='这个字段是必须的'">
+<div class="container" ng-iscroll>
+<form name="event" id="form_event" ng-controller='formCtrl' class="form-main">
 
-    <p>
-        <span ng-show="event.title.$error.required">{{required_text}}</span>
+    <div ng-init="required_text='这个字段是必须的'">
         <label for="id_title">活动标题：</label>
+        <span ng-show="event.title.$error.required">{{required_text}}</span> <br>
         <input id="id_title" maxlength="50" name="title" type="text" ng-model="d.title" required>
-    </p>
+    </div>
 
-    <p>
-        <label for="id_category">活动类型：</label>
+    <div>
+        <label for="id_category">活动类型：</label>  <br>
         <select id="id_category" name="category" ng-model="d.category" ng-options="c.title_cn for c in meta.ca">
         </select>
-    </p>
+    </div>
 
-    <p>
-        <span ng-show="event.start_time.$error.required">{{required_text}}</span>
+    <div>
         <label for="id_start_time">开始时间：</label>
+        <span ng-show="event.start_time.$error.required">{{required_text}}</span> <br>
         <input ng-model="d.start_time" id="id_start_time" name="start_time" type="text" required>
         <span class="add-on"><i class="icon-calendar"></i></span>
-    </p>
+    </div>
 
-    <p>
-        <span ng-show="event.end_time.$error.required">{{required_text}}</span>
+    <div>
         <label for="id_end_time">结束时间：</label>
+        <span ng-show="event.end_time.$error.required">{{required_text}}</span> <br>
         <input ng-model="d.end_time" id="id_end_time" name="end_time" type="text">
         <span class="add-on"><i class="icon-calendar"></i></span>
-    </p>
+    </div>
 
 
-    <p>
-        <span ng-show="event.avenue.$error.required">{{required_text}}</span>
+    <div>
         <label for="id_avenue">活动地点：</label>
+        <span ng-show="event.avenue.$error.required">{{required_text}}</span> <br>
         <input id="id_avenue" maxlength="50" name="avenue" type="text" ng-model="d.avenue" required>
-    </p>
+    </div>
 
-    <p>
-        <span ng-show="event.description.$error.required">{{required_text}}</span>
+    <div>
         <label for="id_description">活动描述：</label>
+        <span ng-show="event.description.$error.required">{{required_text}}</span> <br>
         <textarea cols="60" id="id_description" name="description" rows="0" ng-model="d.description" required></textarea>
-    </p>
+    </div>
 
-    <p>
+    <div>
         <a class="btn btn-primary" ng-click="onSubmit()">确定</a>
         <a class="btn btn-inverse" ng-click="goBack()">取消</a>
-    </p>
+    </div>
 </form>
+</div>
 
 

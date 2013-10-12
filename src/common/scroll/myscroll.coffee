@@ -51,11 +51,9 @@ angular.module( 'myscroll', ['ngTouch'])
     offset = 0
     startX = 0
     x = 0
-    el.css position:"relative"
-    style = position:"absolute", width:"100%", 'min-height':"100%"
+
     for card in cards
       card.style.left = offset+'px'
-      angular.extend card.style, style
       offset += width
 
     updatePosition = ->

@@ -1,30 +1,34 @@
 
-
-
-.itemdetail-thumb{
+.itemdetail(){
   .mhs;
   position: absolute;
-  left: 0; top: 0; right: 0;
-  height: @thumbnail-height;
+  left: 0;
+  right: 0;
   overflow: hidden;
+}
+
+@detail-row-margin: @list-item-top-margin;
+
+.itemdetail-thumb{
+  .itemdetail();
+  top:0;
+  height: @thumbnail-height;
 }
 
 .itemdetail-info{
   position: absolute;
-  left: @thumbnail-width; top: @list-item-top-margin;
+  left: @thumbnail-width; top: @detail-row-margin;
   right: 0;
   height: @thumbnail-height;
   overflow: hidden;
 }
 
+@itemdetail-option-height: @btn-height;
+
 .itemdetail-option{
-  .mhs;
-  position: absolute;
-  left: 0;
-  top:@thumbnail-height+@list-item-top-margin*2;
-  right: 0;
+  .itemdetail();
+  top:@thumbnail-height+@detail-row-margin*2;
   height: @itemdetail-option-height;
-  overflow: hidden;
   >a{
     display: inline-block;
     padding: 8px 10px;
@@ -33,12 +37,67 @@
 }
 
 .itemdetail-misc{
-  .mhs;
-  position: absolute;
-  left: 0;
-  top:@thumbnail-height+@list-item-top-margin*2+@itemdetail-option-height;
-  right: 0;
-//  height: @thumbnail-height;
-  overflow: hidden;
+  .itemdetail();
+  top:@thumbnail-height+@detail-row-margin*3+@itemdetail-option-height;
+  bottom: 0;
+}
 
+@navs-line-height: 20px;
+@navs-padding-v: 5px;
+@tabs-var-height: 5px;
+
+.tabs-navs{
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  background: gainsboro;
+
+  >span{
+    padding-top: @navs-padding-v;
+    padding-bottom: @navs-padding-v;
+    line-height: @navs-line-height;
+    &.active{
+      background: greenyellow;
+    }
+  }
+}
+
+.tabs-bar{
+  position: absolute;
+  left: 0; right: 0;
+  top: @navs-line-height+@navs-padding-v*2;
+  background: burlywood;
+  height: @tabs-var-height;
+}
+
+.tabs-content{
+  position: absolute;
+  left: 0; right: 0;
+  top: @navs-line-height+@navs-padding-v*2+@tabs-var-height;
+  bottom: 0;
+}
+
+.tabs-pane{
+  position: absolute;
+  top:0;
+  width: 100%;
+  bottom: 0;
+  background: #d3d3d3;
+}
+
+@comment-form-height: @btn-height;
+
+.comment-content{
+  padding-bottom: @comment-form-height;
+}
+
+.comment-form{
+  position: absolute;
+  width: 100%;
+//  height: @comment-form-height;
+  bottom: 0;
+}
+
+@user-thumbnail-size: 50;
+.user-thumbnail{
+  .square(@user-thumbnail-size);
 }

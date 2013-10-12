@@ -5,7 +5,7 @@
     <a class="option pull-right prm" ng-click="onOption('REFRESH')"><i class="icon-refresh icon-large"></i></a>
 </div>
 
-<div class="container" ng-iscroll>
+<div class="container" ng-iscroll='objects'>
     <div class="content">
         <div ng-iscroll-pull="{statusID: 'pullStatus', onLoad: onRefresh}" class="pull pullDown">
             <span class="pullIcon pullDown" ng-class="{flip:pullStatus=='flip',loading:pullStatus=='loading'}"></span>

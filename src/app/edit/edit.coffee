@@ -12,6 +12,7 @@ angular.module('app.edit', [])
 #      e = model.get $scope.e.id
 #
     id = Number $routeParams.id
+    $scope.isNew = if id then 1 else 0
     $scope.e = e = if id then model.get id else {}
   )
 
