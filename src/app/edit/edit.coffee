@@ -1,9 +1,6 @@
 
 angular.module('app.edit', [])
 
-  .config( () ->
-  )
-
   .controller( 'EditCtrl', ($scope, Many, $routeParams, noRepeat, $timeout) ->
 
     model = Many('events')

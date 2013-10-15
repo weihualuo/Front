@@ -21,11 +21,11 @@
     </div>
 
     <div class="itemdetail-option">
-        <a class="btn btn-primary" ng-click="onEdit()" ng-show="IamOwner">修改活动</a>
-        <a class="btn btn-primary" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']" ng-hide="IamOwner">
+        <a class="btn btn-primary itemdetail-btn" ng-click="onEdit()" ng-show="IamOwner">修改活动</a>
+        <a class="btn btn-primary itemdetail-btn" ng-click="onRegister()" ng-init="text=['马上报名','取消报名']" ng-hide="IamOwner">
             {{text[IamIn]}}</a>
-        <a class="btn btn-info" ng-click="onShare()">分享活动</a>
-        <a class="btn btn-inverse" ng-click="onUpload()">上传照片</a>
+        <a class="btn btn-info itemdetail-btn" ng-click="onShare()">分享活动</a>
+        <a class="btn btn-inverse itemdetail-btn" ng-click="onUpload()">上传照片</a>
     </div>
 
     <div class="itemdetail-misc" ng-init="select=0">
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div ng-iscroll='e.comment_set' class="tabs-pane" ng-controller='CommentCtrl'>
+            <div ng-iscroll='e.comment_set' iscroll-form class="tabs-pane" ng-controller='CommentCtrl'>
                 <div class="comment-content">
                     <div ng-iscroll-pull="{statusID: 'pullStatus', onLoad: onRefresh}" class="pull pullDown">
                         <span class="pullIcon pullDown" ng-class="{flip:pullStatus=='flip',loading:pullStatus=='loading'}"></span>
@@ -78,7 +78,7 @@
                     </div>
                     <div ng-iscroll-more="{statusID: 'moreStatus', onLoad: onMore}" class="pull pullUp">
                         <span class="pullIcon pullUp" ng-class="{loading:moreStatus=='loading'}"></span>
-                        <span ng-bind="moreText[moreStatus]" ng-init="moreText={idle:'加载更多...',loading:'加载中...'};moreStatus='idle'"></span>
+                        <span ng-bind="moreText[moreStatus]" ng-init="moreText={idle:'加载更多...',loading:'加载中...'};moreStatus='init'"></span>
                     </div>
                 </div>
                 <div class="comment-form">
@@ -89,9 +89,9 @@
 
             <div ng-iscroll='e.album' class="tabs-pane">
                 <div >
-                    <a ng-repeat="img in e.album">
+                    <div ng-repeat="img in e.album" class="img-thumbnail pull-left">
                         <img ng-src="{{meta.imgbase}}{{img.thumbnail2}}">
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>

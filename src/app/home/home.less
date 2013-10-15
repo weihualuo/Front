@@ -10,11 +10,15 @@
   overflow: hidden;
 }
 
+.img-thumbnail{
+  width: @thumbnail-width;
+  height: @thumbnail-height;
+}
+
 .item-thumbnail{
   position: absolute;
   left: 0; top: @list-item-top-margin;
-  width: @thumbnail-width;
-  height: @thumbnail-height;
+  .img-thumbnail;
   overflow: hidden;
 }
 .item-info{

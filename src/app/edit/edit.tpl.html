@@ -5,8 +5,8 @@
     <span ng-init="titles=['发起活动','修改活动']">{{titles[isNew]}}</span>
 </div>
 
-<div class="container" ng-iscroll>
-<form name="event" id="form_event" ng-controller='formCtrl' class="form-main">
+<div class="container" ng-iscroll iscroll-form ng-controller='formCtrl'>
+<form name="event" id="form_event" class="form-main">
 
     <div ng-init="required_text='这个字段是必须的'">
         <label for="id_title">活动标题：</label>

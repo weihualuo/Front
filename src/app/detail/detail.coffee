@@ -58,5 +58,9 @@ angular.module('app.detail', ['Service', 'app.edit'])
         comment = ""
         $scope.e.comment_set.splice _.findIndex($scope.e.comment_set, id:id), 1
 
+    $scope.onRefresh = (cb)-> $timeout (-> cb()),1000
+
+    $scope.onMore = (cb)->  $timeout (-> cb()),1000
+
   )
 

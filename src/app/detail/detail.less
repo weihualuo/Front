@@ -29,11 +29,16 @@
   .itemdetail();
   top:@thumbnail-height+@detail-row-margin*2;
   height: @itemdetail-option-height;
-  >a{
-    display: inline-block;
-    padding: 8px 10px;
-    line-height: 20px;
-  }
+//  >a{
+//    display: inline-block;
+//    padding: 8px 10px;
+//    line-height: 20px;
+//  }
+}
+.itemdetail-btn{
+  box-sizing: border-box;
+  padding: 8px 10px;
+  line-height: 20px;
 }
 
 .itemdetail-misc{
@@ -95,6 +100,7 @@
   width: 100%;
 //  height: @comment-form-height;
   bottom: 0;
+  z-index: 10;
 }
 
 @user-thumbnail-size: 50;
